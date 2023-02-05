@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
-
+import green from "../images/green-icon.png";
+import red from "../images/red-icon.png";
 export default function FormBox() {
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const {
@@ -20,7 +21,7 @@ export default function FormBox() {
       <InfoBox>
         <InputBox>
           <Label htmlFor="">სახელი</Label>
-          <Input
+          <InputIconBox
             style={{
               border:
                 isSubmitClicked && errors.name
@@ -29,15 +30,31 @@ export default function FormBox() {
                   ? "1px solid #98E37E"
                   : "1px solid #BCBCBC",
             }}
-            type="text"
-            {...register("name", { required: true })}
-          />
+          >
+            <Input type="text" {...register("name", { required: true })} />
+            <img
+              style={{
+                display: !errors.name ? "block" : "none",
+              }}
+              src={green}
+              alt=""
+            />
+            <img
+              style={{
+                marginRight: "-30px",
+                display: errors.name ? "block" : "none",
+              }}
+              src={red}
+              alt=""
+            />
+          </InputIconBox>
+
           <p>მინიმუმ 2 ასო, ქართული ასოები</p>
         </InputBox>
 
         <InputBox>
           <Label htmlFor="">გვარი</Label>
-          <Input
+          <InputIconBox
             style={{
               border:
                 isSubmitClicked && errors.lastName
@@ -46,9 +63,24 @@ export default function FormBox() {
                   ? "1px solid #98E37E"
                   : "1px solid #BCBCBC",
             }}
-            type="text"
-            {...register("lastName", { required: true })}
-          />
+          >
+            <Input type="text" {...register("lastName", { required: true })} />
+            <img
+              style={{
+                display: !errors.lastName ? "block" : "none",
+              }}
+              src={green}
+              alt=""
+            />
+            <img
+              style={{
+                marginRight: "-30px",
+                display: errors.lastName ? "block" : "none",
+              }}
+              src={red}
+              alt=""
+            />
+          </InputIconBox>
           <p>მინიმუმ 2 ასო, ქართული ასოები</p>
         </InputBox>
       </InfoBox>
@@ -56,16 +88,20 @@ export default function FormBox() {
       <InfoBox>
         <p>პირადი ფოტოს ატვირთვა</p>
         <div style={{ position: "relative" }}>
-          <Input
-            type="file"
-            name="ფოტო"
+          <InputIconBox
             style={{
               zIndex: 2,
               position: "relative",
               opacity: 0,
             }}
-            {...register("image", { required: true })}
-          />
+          >
+            <Input
+              type="file"
+              name="ფოტო"
+              {...register("image", { required: true })}
+            />
+          </InputIconBox>
+
           <p
             style={{
               position: "absolute",
@@ -108,7 +144,7 @@ export default function FormBox() {
       <InfoBox>
         <InputBox>
           <Label>ელ.ფოსტა</Label>
-          <Input
+          <InputIconBox
             style={{
               border:
                 isSubmitClicked && errors.email
@@ -117,9 +153,25 @@ export default function FormBox() {
                   ? "1px solid #98E37E"
                   : "1px solid #BCBCBC",
             }}
-            type="email"
-            {...register("email", { required: true })}
-          />
+          >
+            <Input type="email" {...register("email", { required: true })} />
+            <img
+              style={{
+                display: !errors.email ? "block" : "none",
+              }}
+              src={green}
+              alt=""
+            />
+            <img
+              style={{
+                marginRight: "-30px",
+                display: errors.email ? "block" : "none",
+              }}
+              src={red}
+              alt=""
+            />
+          </InputIconBox>
+
           <p>უნდა მთავრდებოდეს @redberry.ge-ით</p>
         </InputBox>
       </InfoBox>
@@ -127,7 +179,7 @@ export default function FormBox() {
       <InfoBox>
         <InputBox>
           <Label>მობილურის ნომერი</Label>
-          <Input
+          <InputIconBox
             style={{
               border:
                 isSubmitClicked && errors.number
@@ -136,9 +188,25 @@ export default function FormBox() {
                   ? "1px solid #98E37E"
                   : "1px solid #BCBCBC",
             }}
-            type="tel"
-            {...register("number", { required: true })}
-          />
+          >
+            <Input type="tel" {...register("number", { required: true })} />
+            <img
+              style={{
+                display: !errors.number ? "block" : "none",
+              }}
+              src={green}
+              alt=""
+            />
+            <img
+              style={{
+                marginRight: "-30px",
+                display: errors.number ? "block" : "none",
+              }}
+              src={red}
+              alt=""
+            />
+          </InputIconBox>
+
           <p>უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს</p>
         </InputBox>
       </InfoBox>
@@ -168,11 +236,20 @@ const InputBox = styled.div`
   flex-direction: column;
   padding: 8px 24px;
 `;
-const Input = styled.input`
-  height: 48px;
-  background: #ffffff;
-
+const InputIconBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 4px;
+  background: #ffffff;
+`;
+const Input = styled.input`
+  width: 90%;
+  height: 48px;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  outline: none;
 `;
 const Label = styled.label`
   font-weight: 500;
