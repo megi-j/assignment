@@ -3,38 +3,36 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
-export default function FormBox() {
-  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+export default function FormBox(props) {
+  // const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+  // const {
+  //   register,
+  //   watch,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    setIsSubmitClicked(true);
-  };
+  // console.log(watch("name"));
+
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   // setIsSubmitClicked(true);
+  // };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={props.handleSubmit(props.onSubmit)}>
       <InfoBox>
         <InputBox>
           <Label htmlFor="">სახელი</Label>
           <InputIconBox
             style={{
-              border:
-                isSubmitClicked && errors.name
-                  ? "1px solid #EF5050"
-                  : isSubmitClicked && !errors.name
-                  ? "1px solid #98E37E"
-                  : "1px solid #BCBCBC",
+              border: props.name ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="text" {...register("name", { required: true })} />
+            <Input type="text" {...props.registerName} />
             <img
               style={{
-                display: !errors.name ? "block" : "none",
+                display: props.name ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -42,7 +40,7 @@ export default function FormBox() {
             <img
               style={{
                 marginRight: "-30px",
-                display: errors.name ? "block" : "none",
+                display: props.name ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -56,18 +54,15 @@ export default function FormBox() {
           <Label htmlFor="">გვარი</Label>
           <InputIconBox
             style={{
-              border:
-                isSubmitClicked && errors.lastName
-                  ? "1px solid #EF5050"
-                  : isSubmitClicked && !errors.lastName
-                  ? "1px solid #98E37E"
-                  : "1px solid #BCBCBC",
+              border: props.lastName
+                ? "1px solid #EF5050"
+                : "1px solid #98E37E",
             }}
           >
-            <Input type="text" {...register("lastName", { required: true })} />
+            <Input type="text" {...props.registerLastName} />
             <img
               style={{
-                display: !errors.lastName ? "block" : "none",
+                display: props.lastName ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -75,7 +70,7 @@ export default function FormBox() {
             <img
               style={{
                 marginRight: "-30px",
-                display: errors.lastName ? "block" : "none",
+                display: props.lastName ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -98,7 +93,8 @@ export default function FormBox() {
             <Input
               type="file"
               name="ფოტო"
-              {...register("image", { required: true })}
+              {...props.registerImage}
+              onChange={props.handleChange}
             />
           </InputIconBox>
 
@@ -136,8 +132,8 @@ export default function FormBox() {
               width: "100%",
               height: "100%",
             }}
-            value="ზოგადი ინფო შენ შესახებ"
-            {...register("aboutMe")}
+            placeholder="ზოგადი ინფო შენ შესახებ"
+            {...props.registerAboutMe}
           ></textarea>
         </InputBox>
       </InfoBox>
@@ -146,18 +142,13 @@ export default function FormBox() {
           <Label>ელ.ფოსტა</Label>
           <InputIconBox
             style={{
-              border:
-                isSubmitClicked && errors.email
-                  ? "1px solid #EF5050"
-                  : isSubmitClicked && !errors.email
-                  ? "1px solid #98E37E"
-                  : "1px solid #BCBCBC",
+              border: props.email ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="email" {...register("email", { required: true })} />
+            <Input type="email" {...props.registerEmail} />
             <img
               style={{
-                display: !errors.email ? "block" : "none",
+                display: props.email ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -165,7 +156,7 @@ export default function FormBox() {
             <img
               style={{
                 marginRight: "-30px",
-                display: errors.email ? "block" : "none",
+                display: props.email ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -181,18 +172,13 @@ export default function FormBox() {
           <Label>მობილურის ნომერი</Label>
           <InputIconBox
             style={{
-              border:
-                isSubmitClicked && errors.number
-                  ? "1px solid #EF5050"
-                  : isSubmitClicked && !errors.number
-                  ? "1px solid #98E37E"
-                  : "1px solid #BCBCBC",
+              border: props.number ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="tel" {...register("number", { required: true })} />
+            <Input type="tel" {...props.registerNumber} />
             <img
               style={{
-                display: !errors.number ? "block" : "none",
+                display: props.number ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -200,7 +186,7 @@ export default function FormBox() {
             <img
               style={{
                 marginRight: "-30px",
-                display: errors.number ? "block" : "none",
+                display: props.number ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -243,6 +229,7 @@ const InputIconBox = styled.div`
   align-items: center;
   border-radius: 4px;
   background: #ffffff;
+  border: 1px solid #bcbcbc;
 `;
 const Input = styled.input`
   width: 90%;
