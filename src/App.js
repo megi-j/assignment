@@ -1,18 +1,42 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import bg from "./images/bg.png";
 import logo from "./images/LOGO.png";
 import logo2 from "./images/LOGO-2.png";
+import { useState } from "react";
+import FirstInfoPage from "./components/FirstInfoPage";
+import { Helmet } from "react-helmet";
+
+const GlobalStyles = createGlobalStyle`
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+`;
 function App() {
+  const [isRezumeAddClicked, setIsResumeAddClicked] = useState(false);
   return (
-    <Container>
-      <Header>
-        <img src={logo} alt="logo" />
-      </Header>
-      <Main>
-        <Button>ᲠᲔᲖᲘᲣᲛᲔᲡ ᲓᲐᲛᲐᲢᲔᲑᲐ</Button>
-        <Logo src={logo2} />
-      </Main>
-    </Container>
+    <>
+      <GlobalStyles />
+      <Helmet></Helmet>
+      {isRezumeAddClicked ? (
+        <FirstInfoPage />
+      ) : (
+        <Container>
+          <Header>
+            <img src={logo} alt="logo" />
+          </Header>
+          <Main>
+            <Button onClick={() => setIsResumeAddClicked(true)}>
+              ᲠᲔᲖᲘᲣᲛᲔᲡ ᲓᲐᲛᲐᲢᲔᲑᲐ
+            </Button>
+            <Logo src={logo2} />
+          </Main>
+        </Container>
+      )}
+    </>
   );
 }
 
