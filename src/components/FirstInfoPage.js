@@ -49,20 +49,37 @@ export default function FirstInfoPage() {
         />
       </FillInfoSide>
       <ShowInfoSide>
-        <Name>{errors.name ? " " : watch("name")}</Name>
-        <Name>{errors.lastName ? "" : watch("lastName")}</Name>
-        <Box>
-          {errors.email ? " " : <img src={email} alt="" />}
-          <EmailAndPhone>{errors.email ? " " : watch("email")}</EmailAndPhone>
-        </Box>
-        <Box>
-          {errors.number ? "" : <img src={phone} />}
-          <EmailAndPhone>{errors.phone ? "" : watch("number")}</EmailAndPhone>
-        </Box>
-        {image && (
-          <img style={{ width: 100 }} src={URL.createObjectURL(image)} />
-        )}
-        <div>{watch("aboutMe")}</div>
+        <FirstPageResult>
+          <TextSide>
+            <Name>
+              {errors.name ? " " : watch("name")}{" "}
+              {errors.lastName ? " " : watch("lastName")}
+            </Name>
+            {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
+            <Box>
+              {errors.email ? " " : <img src={email} alt="" />}
+              <EmailAndPhone>
+                {errors.email ? " " : watch("email")}
+              </EmailAndPhone>
+            </Box>
+            <Box>
+              {errors.number ? "" : <img src={phone} />}
+              <EmailAndPhone>
+                {errors.phone ? "" : watch("number")}
+              </EmailAndPhone>
+            </Box>
+            <AboutMeBox>
+              <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
+              {watch("aboutMe")}
+            </AboutMeBox>
+          </TextSide>
+          {image && (
+            <img
+              style={{ width: 246, height: 246, borderRadius: "50%" }}
+              src={URL.createObjectURL(image)}
+            />
+          )}
+        </FirstPageResult>
       </ShowInfoSide>
     </FirstPageContainer>
   );
@@ -84,6 +101,7 @@ const ShowInfoSide = styled.div`
   width: 50%;
   height: 100%;
   background-color: #fff;
+  padding: 48px 80px;
 `;
 const Header = styled.header`
   width: 80%;
@@ -117,6 +135,7 @@ const Name = styled.h1`
   font-weight: 700;
   font-size: 34px;
   color: #f93b1d;
+  display: inline-block;
 `;
 const Box = styled.div`
   display: flex;
@@ -125,4 +144,29 @@ const EmailAndPhone = styled.p`
   font-weight: 400;
   font-size: 18px;
   color: #1a1a1a;
+`;
+const FirstPageResult = styled.div`
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+`;
+
+const TextSide = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+const AboutMeBox = styled.div`
+  width: 550px;
+  height: 120px;
+  overflow-y: scroll;
+  border: 2px solid blue;
+`;
+const AboutMeTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  color: #f93b1d;
+  margin-bottom: 15px;
 `;
