@@ -1,24 +1,8 @@
-import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
+
 export default function FormBox(props) {
-  // const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-  // const {
-  //   register,
-  //   watch,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-
-  // console.log(watch("name"));
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  //   // setIsSubmitClicked(true);
-  // };
-
   return (
     <Form onSubmit={props.handleSubmit(props.onSubmit)}>
       <InfoBox>
