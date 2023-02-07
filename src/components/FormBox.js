@@ -104,7 +104,7 @@ export default function FormBox(props) {
       </InfoBox>
 
       <InfoBox>
-        <InputBox>
+        <InputBox style={{ width: "100%" }}>
           <Label>ჩემ შესახებ (არასავალდებულო)</Label>
           <textarea
             name=""

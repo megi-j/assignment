@@ -92,7 +92,10 @@ export default function FirstInfoPage() {
                   required: true,
                   pattern: /^[^s@]+@redberry.ge$/,
                 })}
-                registerNumber={register("number", { required: true })}
+                registerNumber={register("number", {
+                  required: true,
+                  pattern: /^(\+995\s\d{3}\s\d{2}\s\d{2}\s\d{2})$/,
+                })}
               />
 
               <ShowInfoSide>
