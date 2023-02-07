@@ -5,6 +5,7 @@ import App from "../App";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
 import { useForm, SubmitHandler } from "react-hook-form";
+import ExperienceForm from "./ExperienceForm";
 
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
@@ -14,6 +15,12 @@ export default function SecondInfoPage(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // setInfo(data);
+    // setIsSubmitted(true);
+  };
 
   return isArrowClicked ? (
     <App />
@@ -27,6 +34,21 @@ export default function SecondInfoPage(props) {
           <Title>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</Title>
           <PageNumber>2/3</PageNumber>
         </HeaderBox>
+        <ExperienceForm
+          registerPosition={register("position", {
+            required: true,
+            minLength: 2,
+          })}
+          registerEmployer={register("employer", {
+            required: true,
+            minLength: 2,
+          })}
+          registerStartDate={register("startDate", { required: true })}
+          registerEndDate={register("endDate", { required: true })}
+          registerDescription={register("description", { required: true })}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        />
       </FillInfoSide>
 
       <ShowInfoSide>

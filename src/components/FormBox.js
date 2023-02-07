@@ -13,11 +13,7 @@ export default function FormBox(props) {
               border: props.name ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input
-              type="text"
-              {...props.registerName}
-              // ref={register({ validate: validateName })}
-            />
+            <Input type="text" {...props.registerName} />
 
             <img
               style={{
@@ -120,6 +116,7 @@ export default function FormBox(props) {
               borderRadius: " 4px",
               width: "100%",
               height: "100%",
+              resize: "none",
             }}
             placeholder="ზოგადი ინფო შენ შესახებ"
             {...props.registerAboutMe}
