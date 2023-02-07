@@ -24,7 +24,9 @@ export default function FirstInfoPage() {
     setInfo(data);
     setIsSubmitted(true);
   };
-
+  const validateEmail = (value) => {
+    return value.endsWith("@redberry.ge");
+  };
   const handleChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -52,7 +54,10 @@ export default function FirstInfoPage() {
               })}
               registerImage={register("image", { required: true })}
               registerAboutMe={register("aboutMe")}
-              registerEmail={register("email", { required: true })}
+              registerEmail={register("email", {
+                required: true,
+                validate: validateEmail,
+              })}
               registerNumber={register("number", { required: true })}
               image={image}
               inputName={info.name}
@@ -73,23 +78,31 @@ export default function FirstInfoPage() {
                 onSubmit={onSubmit}
                 handleChange={handleChange}
                 arrowDivClicked={() => setIsArrowDivClicked(true)}
-                registerName={register("name", { required: true })}
-                registerLastName={register("lastName", { required: true })}
+                registerName={register("name", {
+                  required: true,
+                  pattern: /^[ა-ჰ]+$/,
+                })}
+                registerLastName={register("lastName", {
+                  required: true,
+                  pattern: /^[ა-ჰ]+$/,
+                })}
                 registerImage={register("image", { required: true })}
                 registerAboutMe={register("aboutMe")}
-                registerEmail={register("email", { required: true })}
+                registerEmail={register("email", {
+                  required: true,
+                  pattern: /^[^s@]+@redberry.ge$/,
+                })}
                 registerNumber={register("number", { required: true })}
-                // ref={register({ validate: validateName })}
               />
 
               <ShowInfoSide>
                 <FirstPageResult>
                   <TextSide>
                     <Name>
-                      {errors.name ? " " : watch("name")}
+                      {errors.name ? " " : watch("name")}&nbsp;
                       {errors.lastName ? " " : watch("lastName")}
                     </Name>
-                    {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
+
                     <Box>
                       {errors.email ? " " : <img src={email} alt="" />}
                       <EmailAndPhone>
@@ -142,7 +155,10 @@ const Name = styled.h1`
   font-weight: 700;
   font-size: 34px;
   color: #f93b1d;
-  display: inline-block;
+
+  // &:after {
+  //   content: " ";
+  // }
 `;
 const Box = styled.div`
   display: flex;
