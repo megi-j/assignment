@@ -6,9 +6,11 @@ import email from "../images/email.png";
 import phone from "../images/phone.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ExperienceForm from "./ExperienceForm";
+import FirstInfoPage from "./FirstInfoPage";
 
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
+  const [isBackClicked, setIsBackClicked] = useState(false);
   const {
     register,
     watch,
@@ -24,6 +26,8 @@ export default function SecondInfoPage(props) {
 
   return isArrowClicked ? (
     <App />
+  ) : isBackClicked ? (
+    <FirstInfoPage />
   ) : (
     <>
       <FillInfoSide>
@@ -48,6 +52,7 @@ export default function SecondInfoPage(props) {
           registerDescription={register("description", { required: true })}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
+          backClicked={() => setIsBackClicked(true)}
         />
       </FillInfoSide>
 
@@ -79,10 +84,39 @@ export default function SecondInfoPage(props) {
             />
           )}
         </FirstPageResult>
+
+        <SecondPageResult>
+          <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+          <PositionText>
+            {errors.position ? " " : watch("position")}{" "}
+            {errors.employer ? " " : watch("employer")}
+          </PositionText>
+          <StartAndEndDate>
+            {errors.startDate ? " " : watch("startDate")} -{" "}
+            {errors.endDate ? " " : watch("endDate")}
+          </StartAndEndDate>
+          <p>{errors.description ? " " : watch("description")}</p>
+        </SecondPageResult>
       </ShowInfoSide>
     </>
   );
 }
+const StartAndEndDate = styled.p`
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  color: #919191;
+`;
+const PositionText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  color: #1a1a1a;
+`;
+const ExperienceTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  color: #f93b1d;
+`;
 const AboutMeBox = styled.div`
   width: 550px;
   height: 120px;
@@ -119,6 +153,14 @@ const FirstPageResult = styled.div`
   height: 30%;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #c8c8c8;
+`;
+const SecondPageResult = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   border-bottom: 1px solid #c8c8c8;
 `;
 const ShowInfoSide = styled.div`

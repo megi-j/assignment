@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
@@ -100,7 +101,7 @@ export default function ExperienceForm(props) {
       <hr style={{ width: "95%", margin: "0 auto" }} />
       <MoreExperienceButton>მეტი გამოცდილების დამატება</MoreExperienceButton>
       <ButtonBox>
-        <BackButton>ᲣᲙᲐᲜ</BackButton>
+        <BackButton onClick={props.backClicked}>ᲣᲙᲐᲜ</BackButton>
         <SubmitButton type="submit">ᲨᲔᲛᲓᲔᲒᲘ</SubmitButton>
       </ButtonBox>
     </Form>
