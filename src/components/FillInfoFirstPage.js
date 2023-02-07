@@ -3,10 +3,11 @@ import FormBox from "./FormBox";
 import arrow from "../images/Vector.png";
 import SecondInfoPage from "./SecondInfoPage";
 
-export default function FillInfo(props) {
-  return props.isSubmitted ? (
-    <SecondInfoPage />
-  ) : (
+export default function FillInfoFirstPage(props) {
+  return (
+    // props.isSubmitted ? (
+    //   <SecondInfoPage />
+    // ) : (
     <FillInfoSide>
       <Header>
         <ArrowDiv onClick={props.arrowDivClicked}>
@@ -29,6 +30,7 @@ export default function FillInfo(props) {
         registerEmail={props.registerEmail}
         registerNumber={props.registerNumber}
         handleChange={props.handleChange}
+        // ref={props.ref}
       />
     </FillInfoSide>
   );

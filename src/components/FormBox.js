@@ -13,7 +13,12 @@ export default function FormBox(props) {
               border: props.name ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="text" {...props.registerName} />
+            <Input
+              type="text"
+              {...props.registerName}
+              // ref={register({ validate: validateName })}
+            />
+
             <img
               style={{
                 display: props.name ? "none" : "block",
