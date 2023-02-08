@@ -117,6 +117,7 @@ export default function FormBox(props) {
               width: "100%",
               height: "100%",
               resize: "none",
+              outline: "none",
             }}
             placeholder="ზოგადი ინფო შენ შესახებ"
             {...props.registerAboutMe}

@@ -21,7 +21,7 @@ function App() {
     <>
       <GlobalStyles />
       <Helmet></Helmet>
-      {isRezumeAddClicked ? (
+      {isRezumeAddClicked ? ( //თუ რეზიუმეს დამატების ღილაკს დაკლიკულია მაშინ გაიხსნას პირველი, ზოგადი ინფორმაციის გვერდი , თუ არადა შესავალი გვერდი იყოს გახსნილი
         <FirstInfoPage />
       ) : (
         <Container>

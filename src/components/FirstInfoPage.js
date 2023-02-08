@@ -32,11 +32,11 @@ export default function FirstInfoPage() {
   };
   return (
     <>
-      {isArrowDivClicked ? (
+      {isArrowDivClicked ? ( //თუ ზედა მარცხენა კუთხეში ისარს დაკლიკული აქვს გაიხსნას ისევ პირველი შესავალი გვერდი, თუ არადა ზოგადი ინფომაციის გვერდი
         <App />
       ) : (
         <FirstPageContainer>
-          {isSubmitted ? (
+          {isSubmitted ? ( //თუ შემდეგ ღილაკს დაკლიკული აქვს და დასაბმითდა გვერდი(ანუ ყველაფერი თუ სწორად არის შევსებული მაშინ გაიხსნას მეორე ანუ გამოცდილების გვერდი)
             <SecondInfoPage
               arrowClicked={() => setIsArrowDivClicked(true)}
               handleSubmit={handleSubmit}
@@ -145,6 +145,7 @@ const FirstPageContainer = styled.div`
   height: 100vh;
   margin: 0 auto;
   display: flex;
+  overflow-y: scroll;
 `;
 
 const ShowInfoSide = styled.div`
@@ -158,10 +159,6 @@ const Name = styled.h1`
   font-weight: 700;
   font-size: 34px;
   color: #f93b1d;
-
-  // &:after {
-  //   content: " ";
-  // }
 `;
 const Box = styled.div`
   display: flex;

@@ -11,6 +11,9 @@ import FirstInfoPage from "./FirstInfoPage";
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
   const [isBackClicked, setIsBackClicked] = useState(false);
+  const [isMoreExperienceButtonClicked, setIsMoreExperienceButtonClicked] =
+    useState(false);
+
   const {
     register,
     watch,
@@ -23,6 +26,10 @@ export default function SecondInfoPage(props) {
     // setInfo(data);
     // setIsSubmitted(true);
   };
+  const handleButtonClick = (event) => {
+    event.preventDefault();
+    setIsMoreExperienceButtonClicked(true);
+  };
 
   return isArrowClicked ? (
     <App />
@@ -30,7 +37,7 @@ export default function SecondInfoPage(props) {
     <FirstInfoPage />
   ) : (
     <>
-      <FillInfoSide>
+      <FillInfoExperienceSide>
         <HeaderBox>
           <ArrowDiv onClick={() => setIsArrowClicked(true)}>
             <img src={arrow} alt="arrow" />
@@ -57,14 +64,33 @@ export default function SecondInfoPage(props) {
           employer={errors.employer}
           startDate={errors.startDate}
           endDate={errors.endDate}
+          description={errors.description}
+          position2={errors.position2}
+          registerPosition2={register("position2", {
+            required: true,
+            minLength: 2,
+          })}
+          employer2={errors.employer2}
+          registerEmployer2={register("employer2", {
+            required: true,
+            minLength: 2,
+          })}
+          startDate2={errors.startDate2}
+          registerStartDate2={register("startDate2", { required: true })}
+          endDate2={errors.endDate2}
+          registerEndDate2={register("endDate2", { required: true })}
+          description2={errors.description2}
+          registerDescription2={register("description2", { required: true })}
+          isMoreExperienceButtonClicked={isMoreExperienceButtonClicked}
+          handleButtonClick={handleButtonClick}
         />
-      </FillInfoSide>
+      </FillInfoExperienceSide>
 
       <ShowInfoSide>
         <FirstPageResult>
           <TextSide>
             <Name>
-              {props.inputName}
+              {props.inputName}&nbsp;
               {props.inputLastName}
             </Name>
             {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
@@ -101,6 +127,20 @@ export default function SecondInfoPage(props) {
           </StartAndEndDate>
           <p>{errors.description ? " " : watch("description")}</p>
         </SecondPageResult>
+        {isMoreExperienceButtonClicked && (
+          <SecondPageResult>
+            <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+            <PositionText>
+              {errors.position2 ? " " : watch("position2")}{" "}
+              {errors.employer2 ? " " : watch("employer2")}
+            </PositionText>
+            <StartAndEndDate>
+              {errors.startDate2 ? " " : watch("startDate2")} -{" "}
+              {errors.endDate2 ? " " : watch("endDate2")}
+            </StartAndEndDate>
+            <p>{errors.description2 ? " " : watch("description2")}</p>
+          </SecondPageResult>
+        )}
       </ShowInfoSide>
     </>
   );
@@ -173,7 +213,7 @@ const ShowInfoSide = styled.div`
   background-color: #fff;
   padding: 48px 80px;
 `;
-const FillInfoSide = styled.div`
+const FillInfoExperienceSide = styled.div`
   width: 50%;
   height: 100%;
   background-color: #f9f9f9;
