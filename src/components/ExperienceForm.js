@@ -9,7 +9,13 @@ export default function ExperienceForm(props) {
       <InfoBox>
         <InputBox>
           <Label>თანამდებობა</Label>
-          <InputIconBox>
+          <InputIconBox
+            style={{
+              border: props.position
+                ? "1px solid #EF5050"
+                : "1px solid #98E37E",
+            }}
+          >
             <Input
               type="text"
               placeholder="დეველოპერი, დიზაინერი, ა.შ."
@@ -17,7 +23,7 @@ export default function ExperienceForm(props) {
             />
             <img
               style={{
-                display: props.name ? "none" : "block",
+                display: props.position ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -25,7 +31,7 @@ export default function ExperienceForm(props) {
             <img
               style={{
                 marginRight: "-30px",
-                display: props.name ? "block" : "none",
+                display: props.position ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -38,7 +44,13 @@ export default function ExperienceForm(props) {
       <InfoBox>
         <InputBox>
           <Label>დამსაქმებელი</Label>
-          <InputIconBox>
+          <InputIconBox
+            style={{
+              border: props.employer
+                ? "1px solid #EF5050"
+                : "1px solid #98E37E",
+            }}
+          >
             <Input
               type="text"
               placeholder="დამსაქმებელი"
@@ -46,7 +58,7 @@ export default function ExperienceForm(props) {
             />
             <img
               style={{
-                display: props.name ? "none" : "block",
+                display: props.employer ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -54,7 +66,7 @@ export default function ExperienceForm(props) {
             <img
               style={{
                 marginRight: "-30px",
-                display: props.name ? "block" : "none",
+                display: props.employer ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -67,13 +79,23 @@ export default function ExperienceForm(props) {
       <InfoBox>
         <InputBox>
           <Label>დაწყების რიცხვი</Label>
-          <InputIconBox>
+          <InputIconBox
+            style={{
+              border: props.startDate
+                ? "1px solid #EF5050"
+                : "1px solid #98E37E",
+            }}
+          >
             <Input type="date" {...props.registerStartDate} />
           </InputIconBox>
         </InputBox>
         <InputBox>
           <Label>დამთავრების რიცხვი</Label>
-          <InputIconBox>
+          <InputIconBox
+            style={{
+              border: props.endDate ? "1px solid #EF5050" : "1px solid #98E37E",
+            }}
+          >
             <Input type="date" {...props.registerEndDate} />
           </InputIconBox>
           <Input />
@@ -93,6 +115,7 @@ export default function ExperienceForm(props) {
               width: "100%",
               height: 123,
               resize: "none",
+              outline: "none",
             }}
             {...props.registerDescription}
           ></textarea>

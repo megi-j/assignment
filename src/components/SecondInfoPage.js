@@ -53,6 +53,10 @@ export default function SecondInfoPage(props) {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           backClicked={() => setIsBackClicked(true)}
+          position={errors.position}
+          employer={errors.employer}
+          startDate={errors.startDate}
+          endDate={errors.endDate}
         />
       </FillInfoSide>
 

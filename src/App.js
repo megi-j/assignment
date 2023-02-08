@@ -66,6 +66,7 @@ const Button = styled.button`
   font-weight: 500;
   font-size: 20px;
   z-index: 1;
+  cursor: pointer;
 `;
 const Main = styled.main`
   width: 100%;
