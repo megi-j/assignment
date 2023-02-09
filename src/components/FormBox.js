@@ -121,6 +121,7 @@ export default function FormBox(props) {
             }}
             placeholder="ზოგადი ინფო შენ შესახებ"
             {...props.registerAboutMe}
+            onInput={props.onInput}
           ></textarea>
         </InputBox>
       </InfoBox>
@@ -132,7 +133,11 @@ export default function FormBox(props) {
               border: props.email ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="email" {...props.registerEmail} />
+            <Input
+              type="email"
+              {...props.registerEmail}
+              onFocus={props.onFocusEmail}
+            />
             <img
               style={{
                 display: props.email ? "none" : "block",
@@ -162,7 +167,11 @@ export default function FormBox(props) {
               border: props.number ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="tel" {...props.registerNumber} />
+            <Input
+              type="tel"
+              {...props.registerNumber}
+              onFocus={props.onFocusTel}
+            />
             <img
               style={{
                 display: props.number ? "none" : "block",

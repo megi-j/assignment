@@ -1,17 +1,22 @@
 import styled from "styled-components";
-import { useForm, SubmitHandler } from "react-hook-form";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
 import { useState } from "react";
-import App from "../App";
+import { useForm, SubmitHandler } from "react-hook-form";
 import SecondInfoPage from "./SecondInfoPage";
 import FillInfoFirstPage from "./FillInfoFirstPage";
+import smallLogo from "../images/logo-3.png";
+import App from "../App";
 
-export default function FirstInfoPage() {
-  const [image, setImage] = useState(null);
+export default function FirstInfoPage(props) {
   const [isArrowDivClicked, setIsArrowDivClicked] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmittedFirstPage, setIsSubmittedFirstPage] = useState(false);
   const [info, setInfo] = useState();
+  const [image, setImage] = useState(null);
+  const [showEmailIcon, setShowEmailIcon] = useState(false);
+  const [showTelIcon, setShowTelIcon] = useState(false);
+  const [showAboutMe, setShowAboutMe] = useState(false);
+
   const {
     register,
     watch,
@@ -22,117 +27,127 @@ export default function FirstInfoPage() {
   const onSubmit = (data) => {
     console.log(data);
     setInfo(data);
-    setIsSubmitted(true);
-  };
-  const validateEmail = (value) => {
-    return value.endsWith("@redberry.ge");
+    setIsSubmittedFirstPage(true);
   };
   const handleChange = (e) => {
     setImage(e.target.files[0]);
   };
+
   return (
     <>
-      {isArrowDivClicked ? ( //თუ ზედა მარცხენა კუთხეში ისარს დაკლიკული აქვს გაიხსნას ისევ პირველი შესავალი გვერდი, თუ არადა ზოგადი ინფომაციის გვერდი
+      {isArrowDivClicked ? (
         <App />
+      ) : isSubmittedFirstPage ? (
+        <SecondInfoPage
+          image={image}
+          inputName={info.name}
+          inputLastName={info.lastName}
+          inputEmail={info.email}
+          inputNumber={info.number}
+          inputAboutMe={info.aboutMe}
+          arrowClicked={() => setIsArrowDivClicked(true)}
+          handleSubmit={handleSubmit}
+          name={errors.name}
+          lastName={errors.lastName}
+          email={errors.email}
+          number={errors.number}
+          onSubmit={onSubmit}
+          handleChange={handleChange}
+          arrowDivClicked={() => setIsArrowDivClicked(true)}
+          registerName={register("name", { required: true, minLength: 2 })}
+          registerLastName={register("lastName", {
+            required: true,
+            minLength: 2,
+          })}
+          registerImage={register("image", { required: true })}
+          registerAboutMe={register("aboutMe")}
+          registerEmail={register("email", {
+            required: true,
+          })}
+          registerNumber={register("number", { required: true })}
+
+          // handleSubmit={handleSubmit}
+          // onSubmit={onSubmit}
+        />
       ) : (
         <FirstPageContainer>
-          {isSubmitted ? ( //თუ შემდეგ ღილაკს დაკლიკული აქვს და დასაბმითდა გვერდი(ანუ ყველაფერი თუ სწორად არის შევსებული მაშინ გაიხსნას მეორე ანუ გამოცდილების გვერდი)
-            <SecondInfoPage
-              arrowClicked={() => setIsArrowDivClicked(true)}
-              handleSubmit={handleSubmit}
-              name={errors.name}
-              lastName={errors.lastName}
-              email={errors.email}
-              number={errors.number}
-              onSubmit={onSubmit}
-              handleChange={handleChange}
-              arrowDivClicked={() => setIsArrowDivClicked(true)}
-              registerName={register("name", { required: true, minLength: 2 })}
-              registerLastName={register("lastName", {
-                required: true,
-                minLength: 2,
-              })}
-              registerImage={register("image", { required: true })}
-              registerAboutMe={register("aboutMe")}
-              registerEmail={register("email", {
-                required: true,
-                validate: validateEmail,
-              })}
-              registerNumber={register("number", { required: true })}
-              image={image}
-              inputName={info.name}
-              inputLastName={info.lastName}
-              inputEmail={info.email}
-              inputNumber={info.number}
-              inputAboutMe={info.aboutMe}
+          <FillInfoFirstPage
+            isSubmitted={props.isSubmitted}
+            handleSubmit={handleSubmit}
+            name={errors.name}
+            lastName={errors.lastName}
+            email={errors.email}
+            number={errors.number}
+            onSubmit={onSubmit}
+            handleChange={handleChange}
+            arrowDivClicked={() => setIsArrowDivClicked(true)}
+            registerName={register("name", {
+              required: true,
+              pattern: /^[ა-ჰ]+$/,
+            })}
+            registerLastName={register("lastName", {
+              required: true,
+              pattern: /^[ა-ჰ]+$/,
+            })}
+            registerImage={register("image", { required: true })}
+            registerAboutMe={register("aboutMe")}
+            registerEmail={register("email", {
+              required: true,
+              pattern: /^[^s@]+@redberry.ge$/,
+            })}
+            registerNumber={register("number", {
+              required: true,
+              pattern: /^(\+995\s\d{3}\s\d{2}\s\d{2}\s\d{2})$/,
+            })}
+            onFocusEmail={() => setShowEmailIcon(true)}
+            onFocusTel={() => setShowTelIcon(true)}
+            onInput={() => setShowAboutMe(true)}
+            isSubmittedFirstPage={props.isSubmitted}
+          />
+
+          <ShowInfoSide>
+            <FirstPageResult
+              style={{
+                borderBottom: isSubmittedFirstPage && "1px solid #c8c8c8",
+              }}
+            >
+              <TextSide>
+                <Name>
+                  {errors.name ? " " : watch("name")}&nbsp;
+                  {errors.lastName ? " " : watch("lastName")}
+                </Name>
+                <Box>
+                  {showEmailIcon && <img src={email} alt="" />}&nbsp;&nbsp;
+                  <EmailAndPhone>
+                    {errors.email ? " " : watch("email")}
+                  </EmailAndPhone>
+                </Box>
+                <Box>
+                  {showTelIcon && <img src={phone} />}&nbsp;&nbsp;
+                  <EmailAndPhone>
+                    {errors.phone ? "" : watch("number")}
+                  </EmailAndPhone>
+                </Box>
+                <AboutMeBox>
+                  {showAboutMe && <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>}
+                  {watch("aboutMe")}
+                </AboutMeBox>
+              </TextSide>
+              {image && (
+                <img
+                  style={{ width: 246, height: 246, borderRadius: "50%" }}
+                  src={URL.createObjectURL(image)}
+                />
+              )}
+            </FirstPageResult>
+            <img
+              style={{
+                padding: 42,
+              }}
+              src={smallLogo}
+              alt=""
             />
-          ) : (
-            <>
-              <FillInfoFirstPage
-                isSubmitted={isSubmitted}
-                handleSubmit={handleSubmit}
-                name={errors.name}
-                lastName={errors.lastName}
-                email={errors.email}
-                number={errors.number}
-                onSubmit={onSubmit}
-                handleChange={handleChange}
-                arrowDivClicked={() => setIsArrowDivClicked(true)}
-                registerName={register("name", {
-                  required: true,
-                  pattern: /^[ა-ჰ]+$/,
-                })}
-                registerLastName={register("lastName", {
-                  required: true,
-                  pattern: /^[ა-ჰ]+$/,
-                })}
-                registerImage={register("image", { required: true })}
-                registerAboutMe={register("aboutMe")}
-                registerEmail={register("email", {
-                  required: true,
-                  pattern: /^[^s@]+@redberry.ge$/,
-                })}
-                registerNumber={register("number", {
-                  required: true,
-                  pattern: /^(\+995\s\d{3}\s\d{2}\s\d{2}\s\d{2})$/,
-                })}
-              />
-
-              <ShowInfoSide>
-                <FirstPageResult>
-                  <TextSide>
-                    <Name>
-                      {errors.name ? " " : watch("name")}&nbsp;
-                      {errors.lastName ? " " : watch("lastName")}
-                    </Name>
-
-                    <Box>
-                      {errors.email ? " " : <img src={email} alt="" />}
-                      <EmailAndPhone>
-                        {errors.email ? " " : watch("email")}
-                      </EmailAndPhone>
-                    </Box>
-                    <Box>
-                      {errors.number ? "" : <img src={phone} />}
-                      <EmailAndPhone>
-                        {errors.phone ? "" : watch("number")}
-                      </EmailAndPhone>
-                    </Box>
-                    <AboutMeBox>
-                      <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
-                      {watch("aboutMe")}
-                    </AboutMeBox>
-                  </TextSide>
-                  {image && (
-                    <img
-                      style={{ width: 246, height: 246, borderRadius: "50%" }}
-                      src={URL.createObjectURL(image)}
-                    />
-                  )}
-                </FirstPageResult>
-              </ShowInfoSide>
-            </>
-          )}
+          </ShowInfoSide>
         </FirstPageContainer>
       )}
     </>
@@ -146,6 +161,7 @@ const FirstPageContainer = styled.div`
   margin: 0 auto;
   display: flex;
   overflow-y: scroll;
+  border: 1px solid red;
 `;
 
 const ShowInfoSide = styled.div`
@@ -153,6 +169,12 @@ const ShowInfoSide = styled.div`
   height: 100%;
   background-color: #fff;
   padding: 48px 80px;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
 `;
 
 const Name = styled.h1`
@@ -173,7 +195,7 @@ const FirstPageResult = styled.div`
   height: 30%;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #c8c8c8;
+  // border-bottom: 1px solid #c8c8c8;
 `;
 
 const TextSide = styled.div`

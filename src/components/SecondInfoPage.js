@@ -1,18 +1,22 @@
 import styled from "styled-components";
 import arrow from "../images/Vector.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import App from "../App";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ExperienceForm from "./ExperienceForm";
 import FirstInfoPage from "./FirstInfoPage";
+import smallLogo from "../images/logo-3.png";
+import ThirdInfoPage from "./ThirdInfoPage";
 
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
   const [isBackClicked, setIsBackClicked] = useState(false);
   const [isMoreExperienceButtonClicked, setIsMoreExperienceButtonClicked] =
     useState(false);
+  const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
+  const [secondPageInfo, setSecondPageInfo] = useState();
 
   const {
     register,
@@ -23,128 +27,161 @@ export default function SecondInfoPage(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    // setInfo(data);
-    // setIsSubmitted(true);
+    setSecondPageInfo(data);
+    setIsSecondPageSubmit(true);
   };
-  const handleButtonClick = (event) => {
-    event.preventDefault();
-    setIsMoreExperienceButtonClicked(true);
+  // const handleButtonClick = (event) => {
+  //   event.preventDefault();
+  //   setIsMoreExperienceButtonClicked(true);
+  // };
+  const backClicked = (e) => {
+    e.preventDefault();
+    setIsBackClicked(true);
   };
 
-  return isArrowClicked ? (
-    <App />
-  ) : isBackClicked ? (
-    <FirstInfoPage />
-  ) : (
+  return (
     <>
-      <FillInfoExperienceSide>
-        <HeaderBox>
-          <ArrowDiv onClick={() => setIsArrowClicked(true)}>
-            <img src={arrow} alt="arrow" />
-          </ArrowDiv>
-          <Title>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</Title>
-          <PageNumber>2/3</PageNumber>
-        </HeaderBox>
-        <ExperienceForm
-          registerPosition={register("position", {
-            required: true,
-            minLength: 2,
-          })}
-          registerEmployer={register("employer", {
-            required: true,
-            minLength: 2,
-          })}
-          registerStartDate={register("startDate", { required: true })}
-          registerEndDate={register("endDate", { required: true })}
-          registerDescription={register("description", { required: true })}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          backClicked={() => setIsBackClicked(true)}
-          position={errors.position}
-          employer={errors.employer}
-          startDate={errors.startDate}
-          endDate={errors.endDate}
-          description={errors.description}
-          position2={errors.position2}
-          registerPosition2={register("position2", {
-            required: true,
-            minLength: 2,
-          })}
-          employer2={errors.employer2}
-          registerEmployer2={register("employer2", {
-            required: true,
-            minLength: 2,
-          })}
-          startDate2={errors.startDate2}
-          registerStartDate2={register("startDate2", { required: true })}
-          endDate2={errors.endDate2}
-          registerEndDate2={register("endDate2", { required: true })}
-          description2={errors.description2}
-          registerDescription2={register("description2", { required: true })}
-          isMoreExperienceButtonClicked={isMoreExperienceButtonClicked}
-          handleButtonClick={handleButtonClick}
-        />
-      </FillInfoExperienceSide>
+      {isArrowClicked ? (
+        <App />
+      ) : isBackClicked ? (
+        <FirstInfoPage />
+      ) : isSecondPageSubmit ? (
+        <ThirdInfoPage />
+      ) : (
+        <SecondPageContainer>
+          <FillInfoExperienceSide>
+            <HeaderBox>
+              <ArrowDiv onClick={() => setIsArrowClicked(true)}>
+                <img src={arrow} alt="arrow" />
+              </ArrowDiv>
+              <Title>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</Title>
+              <PageNumber>2/3</PageNumber>
+            </HeaderBox>
 
-      <ShowInfoSide>
-        <FirstPageResult>
-          <TextSide>
-            <Name>
-              {props.inputName}&nbsp;
-              {props.inputLastName}
-            </Name>
-            {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
-            <Box>
-              {props.email ? " " : <img src={email} alt="" />}
-              <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
-            </Box>
-            <Box>
-              {props.number ? "" : <img src={phone} />}
-              <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
-            </Box>
-            <AboutMeBox>
-              <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
-              {props.inputAboutMe}
-            </AboutMeBox>
-          </TextSide>
-          {props.image && (
-            <img
-              style={{ width: 246, height: 246, borderRadius: "50%" }}
-              src={URL.createObjectURL(props.image)}
+            <ExperienceForm
+              registerPosition={register("position", {
+                required: true,
+                minLength: 2,
+              })}
+              registerEmployer={register("employer", {
+                required: true,
+                minLength: 2,
+              })}
+              registerStartDate={register("startDate", { required: true })}
+              registerEndDate={register("endDate", { required: true })}
+              registerDescription={register("description", { required: true })}
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              backClicked={backClicked}
+              position={errors.position}
+              employer={errors.employer}
+              startDate={errors.startDate}
+              endDate={errors.endDate}
+              description={errors.description}
+              position2={errors.position2}
+              registerPosition2={register("position2", {
+                required: true,
+                minLength: 2,
+              })}
+              employer2={errors.employer2}
+              registerEmployer2={register("employer2", {
+                required: true,
+                minLength: 2,
+              })}
+              startDate2={errors.startDate2}
+              registerStartDate2={register("startDate2", { required: true })}
+              endDate2={errors.endDate2}
+              registerEndDate2={register("endDate2", { required: true })}
+              description2={errors.description2}
+              registerDescription2={register("description2", {
+                required: true,
+              })}
+              isMoreExperienceButtonClicked={isMoreExperienceButtonClicked}
+              handleButtonClick={() => setIsMoreExperienceButtonClicked(true)}
             />
-          )}
-        </FirstPageResult>
+          </FillInfoExperienceSide>
 
-        <SecondPageResult>
-          <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
-          <PositionText>
-            {errors.position ? " " : watch("position")}{" "}
-            {errors.employer ? " " : watch("employer")}
-          </PositionText>
-          <StartAndEndDate>
-            {errors.startDate ? " " : watch("startDate")} -{" "}
-            {errors.endDate ? " " : watch("endDate")}
-          </StartAndEndDate>
-          <p>{errors.description ? " " : watch("description")}</p>
-        </SecondPageResult>
-        {isMoreExperienceButtonClicked && (
-          <SecondPageResult>
-            <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
-            <PositionText>
-              {errors.position2 ? " " : watch("position2")}{" "}
-              {errors.employer2 ? " " : watch("employer2")}
-            </PositionText>
-            <StartAndEndDate>
-              {errors.startDate2 ? " " : watch("startDate2")} -{" "}
-              {errors.endDate2 ? " " : watch("endDate2")}
-            </StartAndEndDate>
-            <p>{errors.description2 ? " " : watch("description2")}</p>
-          </SecondPageResult>
-        )}
-      </ShowInfoSide>
+          <ShowInfoSide>
+            <FirstPageResult>
+              <TextSide>
+                <Name>
+                  {props.inputName}&nbsp;
+                  {props.inputLastName}
+                </Name>
+                {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
+                <Box>
+                  {props.email ? " " : <img src={email} alt="" />}
+                  <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
+                </Box>
+                <Box>
+                  {" "}
+                  {props.number ? "" : <img src={phone} />}
+                  <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
+                </Box>
+                <AboutMeBox>
+                  {props.inputAboutMe === "" ? (
+                    " "
+                  ) : (
+                    <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
+                  )}
+                  {props.inputAboutMe}
+                </AboutMeBox>
+              </TextSide>
+              {props.image && (
+                <img
+                  style={{ width: 246, height: 246, borderRadius: "50%" }}
+                  src={URL.createObjectURL(props.image)}
+                />
+              )}
+            </FirstPageResult>
+
+            <SecondPageResult>
+              <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+              <PositionText>
+                {errors.position ? " " : watch("position")}
+                {errors.employer ? " " : watch("employer")}
+              </PositionText>
+              <StartAndEndDate>
+                {errors.startDate ? " " : watch("startDate")}
+                {errors.endDate ? " " : watch("endDate")}
+              </StartAndEndDate>
+              <p>{errors.description ? " " : watch("description")}</p>
+            </SecondPageResult>
+            {isMoreExperienceButtonClicked && (
+              <SecondPageResult>
+                <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+                <PositionText>
+                  {errors.position2 ? " " : watch("position2")}{" "}
+                  {errors.employer2 ? " " : watch("employer2")}
+                </PositionText>
+                <StartAndEndDate>
+                  {errors.startDate2 ? " " : watch("startDate2")} -{" "}
+                  {errors.endDate2 ? " " : watch("endDate2")}
+                </StartAndEndDate>
+                <p>{errors.description2 ? " " : watch("description2")}</p>
+              </SecondPageResult>
+            )}
+            <img
+              style={{
+                padding: 42,
+              }}
+              src={smallLogo}
+              alt=""
+            />
+          </ShowInfoSide>
+        </SecondPageContainer>
+      )}
     </>
   );
 }
+const SecondPageContainer = styled.div`
+  max-width: 1920px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  overflow-y: scroll;
+`;
 const StartAndEndDate = styled.p`
   font-style: italic;
   font-weight: 400;
@@ -212,6 +249,11 @@ const ShowInfoSide = styled.div`
   height: 100%;
   background-color: #fff;
   padding: 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
 `;
 const FillInfoExperienceSide = styled.div`
   width: 50%;

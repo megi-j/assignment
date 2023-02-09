@@ -30,7 +30,10 @@ export default function FillInfoFirstPage(props) {
         registerEmail={props.registerEmail}
         registerNumber={props.registerNumber}
         handleChange={props.handleChange}
-        // ref={props.ref}
+        onFocusEmail={props.onFocusEmail}
+        onFocusTel={props.onFocusTel}
+        onInput={props.onInput}
+        isSubmittedFirstPage={props.isSubmittedFirstPage}
       />
     </FillInfoSide>
   );
@@ -68,4 +71,5 @@ const FillInfoSide = styled.div`
   width: 50%;
   height: 100%;
   background-color: #f9f9f9;
+  border: 1px solid green;
 `;
