@@ -3,9 +3,23 @@ import styled from "styled-components";
 import arrow from "../images/Vector.png";
 import { useState } from "react";
 import App from "../App";
+import EducationForm from "./EducationForm";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function ThirdInfoPage() {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
+
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return isArrowClicked ? (
     <App />
   ) : (
@@ -18,6 +32,24 @@ export default function ThirdInfoPage() {
           <Title>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</Title>
           <PageNumber>3/3</PageNumber>
         </HeaderBox>
+
+        <EducationForm
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          registerUniversity={register("university", {
+            required: true,
+            minLength: 2,
+          })}
+          registerDegree={register("degree", { required: true })}
+          registerGraduateDate={register("graduateDate", { required: true })}
+          registerEducationDescription={register("educationDesctiption", {
+            required: true,
+          })}
+          educationDescription={errors.educationDescription}
+          university={errors.university}
+          degree={errors.degree}
+          graduateDate={errors.graduateDate}
+        />
       </FillInfoEducationSide>
     </ThirdPageContainer>
   );
