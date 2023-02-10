@@ -71,5 +71,4 @@ const FillInfoSide = styled.div`
   width: 50%;
   height: 100%;
   background-color: #f9f9f9;
-  border: 1px solid green;
 `;

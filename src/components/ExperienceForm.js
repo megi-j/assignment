@@ -15,6 +15,8 @@ export default function ExperienceForm(props) {
         registerEndDate={props.registerEndDate}
         description={props.description}
         registerDescription={props.registerDescription}
+        showExperience={props.showExperience}
+        showSecondPageResult={props.showSecondPageResult}
       />
       {props.isMoreExperienceButtonClicked && (
         <FormInsideBox
@@ -47,6 +49,7 @@ const SubmitButton = styled.button`
   color: #fff;
   border-radius: 4px;
   border: none;
+  cursor: pointer;
 `;
 const BackButton = styled.button`
   width: 113px;
@@ -72,6 +75,7 @@ const MoreExperienceButton = styled.button`
   font-size: 16px;
   margin-top: 45px;
   margin-bottom: 100px;
+  cursor: pointer;
 `;
 
 const Form = styled.form`

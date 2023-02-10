@@ -209,7 +209,6 @@ const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
 `;
 const InputBox = styled.div`
   width: 45%;
@@ -246,4 +245,5 @@ const SubmitButton = styled.button`
   color: #fff;
   border-radius: 4px;
   border: none;
+  cursor: pointer;
 `;

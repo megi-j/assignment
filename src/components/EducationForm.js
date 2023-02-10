@@ -32,6 +32,7 @@ const SubmitButton = styled.button`
   color: #fff;
   border-radius: 4px;
   border: none;
+  cursor: pointer;
 `;
 const BackButton = styled.button`
   width: 113px;
@@ -40,6 +41,7 @@ const BackButton = styled.button`
   border-radius: 4px;
   color: #fff;
   border: none;
+  cursor: pointer;
 `;
 const ButtonBox = styled.div`
   width: 100%;
@@ -57,6 +59,7 @@ const MoreEducationButton = styled.button`
   font-size: 16px;
   margin-top: 45px;
   margin-bottom: 100px;
+  cursor: pointer;
 `;
 const Form = styled.form`
   width: 80%;

@@ -2,8 +2,31 @@ import React from "react";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 
 export default function ThirdFormInsideBox(props) {
+  const [options, setOptions] = useState();
+  const [fetched, setFetched] = useState(false);
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  function fetchData() {
+    fetch("https://resume.redberryinternship.ge/api/degrees")
+      .then((response) => response.json())
+      .then((json) => {
+        setFetched(true);
+        setOptions(json);
+      });
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <FormInsideDiv>
       <InfoBox>
@@ -49,11 +72,10 @@ export default function ThirdFormInsideBox(props) {
               border: props.degree ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <select
+            {/* <select
               style={{
                 width: "100%",
                 height: "48px",
-
                 outline: "none",
               }}
               name=""
@@ -61,6 +83,22 @@ export default function ThirdFormInsideBox(props) {
               {...props.registerDegree}
             >
               <option>აირჩიეთ ხარისხი</option>
+            </select> */}
+            <select
+              style={{
+                width: "100%",
+                height: "48px",
+                outline: "none",
+              }}
+              name="option"
+              {...props.registerDegree}
+            >
+              {fetched &&
+                options.map((option) => (
+                  <option key={option.id} value={option.title}>
+                    {option.title}
+                  </option>
+                ))}
             </select>
           </InputIconBox>
         </InputBox>
@@ -123,7 +161,6 @@ const InputIconBox = styled.div`
 `;
 const FormInsideDiv = styled.div`
   width: 100%;
-  border: 1px solid blue;
 `;
 const InfoBox = styled.div`
   width: 100%;

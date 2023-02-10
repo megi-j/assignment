@@ -5,9 +5,13 @@ import { useState } from "react";
 import App from "../App";
 import EducationForm from "./EducationForm";
 import { useForm, SubmitHandler } from "react-hook-form";
+import email from "../images/email.png";
+import phone from "../images/phone.png";
+import SecondInfoPage from "./SecondInfoPage";
 
-export default function ThirdInfoPage() {
+export default function ThirdInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
+  const [isBackClicked, setIsBackClicked] = useState(false);
 
   const {
     register,
@@ -22,6 +26,8 @@ export default function ThirdInfoPage() {
 
   return isArrowClicked ? (
     <App />
+  ) : isBackClicked ? (
+    <SecondInfoPage />
   ) : (
     <ThirdPageContainer>
       <FillInfoEducationSide>
@@ -49,12 +55,151 @@ export default function ThirdInfoPage() {
           university={errors.university}
           degree={errors.degree}
           graduateDate={errors.graduateDate}
+          backClicked={() => setIsBackClicked(true)}
         />
       </FillInfoEducationSide>
+
+      <ShowInfoSide>
+        <FirstPageResult>
+          <TextSide>
+            <Name>
+              {props.inputName}&nbsp;
+              {props.inputLastName}
+            </Name>
+            {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
+            <Box>
+              {props.email ? " " : <img src={email} alt="" />}
+              <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
+            </Box>
+            <Box>
+              {" "}
+              {props.number ? "" : <img src={phone} />}
+              <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
+            </Box>
+            <AboutMeBox>
+              {props.inputAboutMe === "" ? (
+                " "
+              ) : (
+                <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
+              )}
+              {props.inputAboutMe}
+            </AboutMeBox>
+          </TextSide>
+          {props.image && (
+            <img
+              style={{ width: 246, height: 246, borderRadius: "50%" }}
+              src={URL.createObjectURL(props.image)}
+            />
+          )}
+        </FirstPageResult>
+
+        <SecondPageResult>
+          <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+          <ExperienceBox>
+            <PositionText>
+              {props.position}
+              {props.employer}
+            </PositionText>
+            <StartAndEndDate>
+              {props.startDate}
+              {props.endDate}
+            </StartAndEndDate>
+            <p>{props.description}</p>
+          </ExperienceBox>
+
+          <ExperienceBox>
+            <PositionText>
+              {props.position2}
+              {props.employer2}
+            </PositionText>
+            <StartAndEndDate>
+              {props.startDate2}
+              {props.endDate2}
+            </StartAndEndDate>
+            <p>{props.description2}</p>
+          </ExperienceBox>
+        </SecondPageResult>
+      </ShowInfoSide>
     </ThirdPageContainer>
   );
 }
+const StartAndEndDate = styled.p`
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  color: #919191;
+`;
+const PositionText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  color: #1a1a1a;
+`;
+const ExperienceTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  color: #f93b1d;
+`;
+const SecondPageResult = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #c8c8c8;
+`;
+const ExperienceBox = styled.div`
+  width: 100%;
+  height: 50%;
+`;
+const Name = styled.h1`
+  font-weight: 700;
+  font-size: 34px;
+  color: #f93b1d;
+  display: inline-block;
+`;
+const TextSide = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+const FirstPageResult = styled.div`
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #c8c8c8;
+`;
+const Box = styled.div`
+  display: flex;
+`;
+const EmailAndPhone = styled.p`
+  font-weight: 400;
+  font-size: 18px;
+  color: #1a1a1a;
+`;
+const AboutMeBox = styled.div`
+  width: 550px;
+  height: 120px;
+  overflow: auto;
+`;
+const AboutMeTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  color: #f93b1d;
+  margin-bottom: 15px;
+`;
 
+const ShowInfoSide = styled.div`
+  width: 50%;
+  height: 100%;
+  background-color: #fff;
+  padding: 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
+`;
 const ThirdPageContainer = styled.div`
   max-width: 1920px;
   width: 100%;
@@ -62,6 +207,7 @@ const ThirdPageContainer = styled.div`
   margin: 0 auto;
   display: flex;
   overflow-y: scroll;
+  border: 1px solid red;
 `;
 const FillInfoEducationSide = styled.div`
   width: 50%;

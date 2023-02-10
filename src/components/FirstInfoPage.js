@@ -161,7 +161,6 @@ const FirstPageContainer = styled.div`
   margin: 0 auto;
   display: flex;
   overflow-y: scroll;
-  border: 1px solid red;
 `;
 
 const ShowInfoSide = styled.div`
@@ -169,7 +168,6 @@ const ShowInfoSide = styled.div`
   height: 100%;
   background-color: #fff;
   padding: 48px 80px;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -195,7 +193,6 @@ const FirstPageResult = styled.div`
   height: 30%;
   display: flex;
   justify-content: space-between;
-  // border-bottom: 1px solid #c8c8c8;
 `;
 
 const TextSide = styled.div`

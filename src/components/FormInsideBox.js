@@ -19,6 +19,8 @@ export default function FormInsideBox(props) {
               type="text"
               placeholder="დეველოპერი, დიზაინერი, ა.შ."
               {...props.registerPosition}
+              onInput={props.showExperience}
+              onFocus={props.showSecondPageResult}
             />
             <img
               style={{
@@ -130,7 +132,6 @@ export default function FormInsideBox(props) {
 
 const FormInsideDiv = styled.div`
   width: 100%;
-  border: 1px solid blue;
 `;
 const Input = styled.input`
   width: 90%;
@@ -159,7 +160,6 @@ const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // border: 1px solid red;
 `;
 const InputBox = styled.div`
   width: 100%;

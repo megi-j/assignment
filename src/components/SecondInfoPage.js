@@ -17,7 +17,8 @@ export default function SecondInfoPage(props) {
     useState(false);
   const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
   const [secondPageInfo, setSecondPageInfo] = useState();
-
+  const [showExperience, setShowExperience] = useState(false);
+  const [showSecondPageResult, setSecondPageResult] = useState(false);
   const {
     register,
     watch,
@@ -46,7 +47,26 @@ export default function SecondInfoPage(props) {
       ) : isBackClicked ? (
         <FirstInfoPage />
       ) : isSecondPageSubmit ? (
-        <ThirdInfoPage />
+        <ThirdInfoPage
+          inputName={props.inputName}
+          inputLastName={props.inputLastName}
+          email={props.email}
+          inputEmail={props.inputEmail}
+          number={props.number}
+          inputNumber={props.inputNumber}
+          inputAboutMe={props.inputAboutMe}
+          image={props.image}
+          position={secondPageInfo.position}
+          employer={secondPageInfo.employer}
+          startDate={secondPageInfo.startDate}
+          endDate={secondPageInfo.endDate}
+          description={secondPageInfo.description}
+          position2={secondPageInfo.position2}
+          employer2={secondPageInfo.employer2}
+          startDate2={secondPageInfo.startDate2}
+          endDate2={secondPageInfo.employer2}
+          description2={secondPageInfo.description2}
+        />
       ) : (
         <SecondPageContainer>
           <FillInfoExperienceSide>
@@ -98,6 +118,8 @@ export default function SecondInfoPage(props) {
               })}
               isMoreExperienceButtonClicked={isMoreExperienceButtonClicked}
               handleButtonClick={() => setIsMoreExperienceButtonClicked(true)}
+              showExperience={() => setShowExperience(true)}
+              showSecondPageResult={() => setSecondPageResult(true)}
             />
           </FillInfoExperienceSide>
 
@@ -135,32 +157,41 @@ export default function SecondInfoPage(props) {
               )}
             </FirstPageResult>
 
-            <SecondPageResult>
-              <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
-              <PositionText>
-                {errors.position ? " " : watch("position")}
-                {errors.employer ? " " : watch("employer")}
-              </PositionText>
-              <StartAndEndDate>
-                {errors.startDate ? " " : watch("startDate")}
-                {errors.endDate ? " " : watch("endDate")}
-              </StartAndEndDate>
-              <p>{errors.description ? " " : watch("description")}</p>
-            </SecondPageResult>
-            {isMoreExperienceButtonClicked && (
-              <SecondPageResult>
-                <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+            <SecondPageResult
+              style={{ display: showSecondPageResult ? "block" : "none" }}
+            >
+              <ExperienceTitle
+                style={{ display: showExperience ? "block" : "none" }}
+              >
+                ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ
+              </ExperienceTitle>
+              <ExperienceBox>
                 <PositionText>
-                  {errors.position2 ? " " : watch("position2")}{" "}
-                  {errors.employer2 ? " " : watch("employer2")}
+                  {errors.position ? " " : watch("position")}
+                  {errors.employer ? " " : watch("employer")}
                 </PositionText>
                 <StartAndEndDate>
-                  {errors.startDate2 ? " " : watch("startDate2")} -{" "}
-                  {errors.endDate2 ? " " : watch("endDate2")}
+                  {errors.startDate ? " " : watch("startDate")}&nbsp;- &nbsp;
+                  {errors.endDate ? " " : watch("endDate")}
                 </StartAndEndDate>
-                <p>{errors.description2 ? " " : watch("description2")}</p>
-              </SecondPageResult>
-            )}
+                <p>{errors.description ? " " : watch("description")}</p>
+              </ExperienceBox>
+
+              {isMoreExperienceButtonClicked && (
+                <ExperienceBox>
+                  <PositionText>
+                    {errors.position2 ? " " : watch("position2")}{" "}
+                    {errors.employer2 ? " " : watch("employer2")}
+                  </PositionText>
+                  <StartAndEndDate>
+                    {errors.startDate2 ? " " : watch("startDate2")}&nbsp;-
+                    &nbsp;
+                    {errors.endDate2 ? " " : watch("endDate2")}
+                  </StartAndEndDate>
+                  <p>{errors.description2 ? " " : watch("description2")}</p>
+                </ExperienceBox>
+              )}
+            </SecondPageResult>
             <img
               style={{
                 padding: 42,
@@ -174,6 +205,13 @@ export default function SecondInfoPage(props) {
     </>
   );
 }
+
+const ExperienceBox = styled.div`
+  width: 100%;
+  height: 50%;
+  border-bottom: 1px solid #c8c8c8;
+  margin-bottom: 20px;
+`;
 const SecondPageContainer = styled.div`
   max-width: 1920px;
   width: 100%;
@@ -231,7 +269,7 @@ const TextSide = styled.div`
 `;
 const FirstPageResult = styled.div`
   width: 100%;
-  height: 30%;
+  height: 20%;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #c8c8c8;
@@ -242,7 +280,6 @@ const SecondPageResult = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border-bottom: 1px solid #c8c8c8;
 `;
 const ShowInfoSide = styled.div`
   width: 50%;
