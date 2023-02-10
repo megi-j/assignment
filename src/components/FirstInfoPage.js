@@ -65,9 +65,6 @@ export default function FirstInfoPage(props) {
             required: true,
           })}
           registerNumber={register("number", { required: true })}
-
-          // handleSubmit={handleSubmit}
-          // onSubmit={onSubmit}
         />
       ) : (
         <FirstPageContainer>

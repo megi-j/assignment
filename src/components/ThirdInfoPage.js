@@ -19,7 +19,7 @@ export default function ThirdInfoPage(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(errors);
+
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -66,7 +66,6 @@ export default function ThirdInfoPage(props) {
               {props.inputName}&nbsp;
               {props.inputLastName}
             </Name>
-            {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
             <Box>
               {props.email ? " " : <img src={email} alt="" />}
               <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
@@ -119,10 +118,55 @@ export default function ThirdInfoPage(props) {
             <p>{props.description2}</p>
           </ExperienceBox>
         </SecondPageResult>
+
+        <ThirdPageResult>
+          <EducationTitle>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</EducationTitle>
+          <EducationBox>
+            <UniversityText>
+              {errors.university ? " " : watch("university")},&nbsp;
+              {errors.degree ? " " : watch("degree")}
+            </UniversityText>
+            <Graduate>
+              {errors.graduateDate ? " " : watch("graduateDate")}
+            </Graduate>
+            <p>
+              {errors.educationDesctiption ? "" : watch("educationDesctiption")}
+            </p>
+          </EducationBox>
+        </ThirdPageResult>
       </ShowInfoSide>
     </ThirdPageContainer>
   );
 }
+const Graduate = styled.p`
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  color: #919191;
+`;
+const UniversityText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  color: #1a1a1a;
+`;
+const EducationBox = styled.div`
+  width: 100%;
+  height: 50%;
+  border-bottom: 1px solid #c8c8c8;
+  margin-bottom: 20px;
+`;
+const EducationTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  color: #f93b1d;
+`;
+const ThirdPageResult = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
 const StartAndEndDate = styled.p`
   font-style: italic;
   font-weight: 400;

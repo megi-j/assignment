@@ -72,18 +72,6 @@ export default function ThirdFormInsideBox(props) {
               border: props.degree ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            {/* <select
-              style={{
-                width: "100%",
-                height: "48px",
-                outline: "none",
-              }}
-              name=""
-              id=""
-              {...props.registerDegree}
-            >
-              <option>აირჩიეთ ხარისხი</option>
-            </select> */}
             <select
               style={{
                 width: "100%",

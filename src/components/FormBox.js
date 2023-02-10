@@ -24,7 +24,7 @@ export default function FormBox(props) {
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.name ? "block" : "none",
               }}
               src={red}
@@ -54,7 +54,7 @@ export default function FormBox(props) {
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.lastName ? "block" : "none",
               }}
               src={red}
@@ -65,7 +65,7 @@ export default function FormBox(props) {
         </InputBox>
       </InfoBox>
 
-      <InfoBox>
+      <InfoBox style={{ paddingLeft: 30 }}>
         <p>პირადი ფოტოს ატვირთვა</p>
         <div style={{ position: "relative" }}>
           <InputIconBox
@@ -105,24 +105,18 @@ export default function FormBox(props) {
 
       <InfoBox>
         <InputBox style={{ width: "100%" }}>
-          <Label>ჩემ შესახებ (არასავალდებულო)</Label>
-          <textarea
+          <Label style={{ marginBottom: 10 }}>
+            ჩემ შესახებ (არასავალდებულო)
+          </Label>
+          <Textarea
             name=""
             id=""
             cols="30"
             rows="10"
-            style={{
-              border: "1px solid #BCBCBC",
-              borderRadius: " 4px",
-              width: "100%",
-              height: "100%",
-              resize: "none",
-              outline: "none",
-            }}
             placeholder="ზოგადი ინფო შენ შესახებ"
             {...props.registerAboutMe}
             onInput={props.onInput}
-          ></textarea>
+          ></Textarea>
         </InputBox>
       </InfoBox>
       <InfoBox>
@@ -147,7 +141,7 @@ export default function FormBox(props) {
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.email ? "block" : "none",
               }}
               src={red}
@@ -181,7 +175,7 @@ export default function FormBox(props) {
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.number ? "block" : "none",
               }}
               src={red}
@@ -199,9 +193,24 @@ export default function FormBox(props) {
     </Form>
   );
 }
+
+const Textarea = styled.textarea`
+  border: 1px solid #bcbcbc;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  padding: 13px 16px;
+`;
 const Form = styled.form`
   width: 80%;
-  margin: 0 auto;
+  height: 80%;
+  margin: 77px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 `;
 const InfoBox = styled.div`
   width: 100%;
@@ -211,10 +220,12 @@ const InfoBox = styled.div`
   align-items: center;
 `;
 const InputBox = styled.div`
-  width: 45%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
   padding: 8px 24px;
 `;
 const InputIconBox = styled.div`
@@ -225,6 +236,7 @@ const InputIconBox = styled.div`
   border-radius: 4px;
   background: #ffffff;
   border: 1px solid #bcbcbc;
+  padding: 0 16px;
 `;
 const Input = styled.input`
   width: 90%;

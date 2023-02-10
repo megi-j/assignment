@@ -5,9 +5,6 @@ import SecondInfoPage from "./SecondInfoPage";
 
 export default function FillInfoFirstPage(props) {
   return (
-    // props.isSubmitted ? (
-    //   <SecondInfoPage />
-    // ) : (
     <FillInfoSide>
       <Header>
         <ArrowDiv onClick={props.arrowDivClicked}>
@@ -71,4 +68,8 @@ const FillInfoSide = styled.div`
   width: 50%;
   height: 100%;
   background-color: #f9f9f9;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+  // align-content: space-between;
 `;

@@ -130,7 +130,7 @@ export default function SecondInfoPage(props) {
                   {props.inputName}&nbsp;
                   {props.inputLastName}
                 </Name>
-                {/* <Name>{errors.lastName ? " " : watch("lastName")}</Name> */}
+
                 <Box>
                   {props.email ? " " : <img src={email} alt="" />}
                   <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
