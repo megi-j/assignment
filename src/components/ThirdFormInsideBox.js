@@ -34,7 +34,7 @@ export default function ThirdFormInsideBox(props) {
           <Label>სასწავლებელი</Label>
           <InputIconBox
             style={{
-              border: props.university
+              border: props.institute
                 ? "1px solid #EF5050"
                 : "1px solid #98E37E",
             }}
@@ -42,11 +42,11 @@ export default function ThirdFormInsideBox(props) {
             <Input
               type="text"
               placeholder="სასწავლებელი"
-              {...props.registerUniversity}
+              {...props.registerInstitute}
             />
             <img
               style={{
-                display: props.university ? "none" : "block",
+                display: props.institute ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -54,7 +54,7 @@ export default function ThirdFormInsideBox(props) {
             <img
               style={{
                 marginRight: "-30px",
-                display: props.university ? "block" : "none",
+                display: props.institute ? "block" : "none",
               }}
               src={red}
               alt=""

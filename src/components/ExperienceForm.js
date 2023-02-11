@@ -11,14 +11,14 @@ export default function ExperienceForm(props) {
         registerEmployer={props.registerEmployer}
         startDate={props.startDate}
         registerStartDate={props.registerStartDate}
-        endDate={props.endDate}
-        registerEndDate={props.registerEndDate}
+        dueDate={props.dueDate}
+        registerDueDate={props.registerDueDate}
         description={props.description}
         registerDescription={props.registerDescription}
         showExperience={props.showExperience}
         showSecondPageResult={props.showSecondPageResult}
       />
-      {props.isMoreExperienceButtonClicked && (
+      {/* {props.isMoreExperienceButtonClicked && (
         <FormInsideBox
           position={props.position2}
           registerPosition={props.registerPosition2}
@@ -26,13 +26,15 @@ export default function ExperienceForm(props) {
           registerEmployer={props.registerEmployer2}
           startDate={props.startDate2}
           registerStartDate={props.registerStartDate2}
-          endDate={props.endDate2}
-          registerEndDate={props.registerEndDate2}
+          dueDate={props.dueDate2}
+          registerDueDate={props.registerDueDate2}
           description={props.description2}
           registerDescription={props.registerDescription2}
         />
-      )}
-      <MoreExperienceButton onClick={props.handleButtonClick}>
+      )} */}
+      <MoreExperienceButton
+      // onClick={props.handleSubmit(props.onSubmit2)}
+      >
         მეტი გამოცდილების დამატება
       </MoreExperienceButton>
       <ButtonBox>

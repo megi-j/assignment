@@ -11,7 +11,7 @@ import App from "../App";
 export default function FirstInfoPage(props) {
   const [isArrowDivClicked, setIsArrowDivClicked] = useState(false);
   const [isSubmittedFirstPage, setIsSubmittedFirstPage] = useState(false);
-  const [info, setInfo] = useState();
+  const [info, setInfo] = useState({});
   const [image, setImage] = useState(null);
   const [showEmailIcon, setShowEmailIcon] = useState(false);
   const [showTelIcon, setShowTelIcon] = useState(false);
@@ -41,30 +41,32 @@ export default function FirstInfoPage(props) {
         <SecondInfoPage
           image={image}
           inputName={info.name}
-          inputLastName={info.lastName}
+          inputSurname={info.surname}
           inputEmail={info.email}
-          inputNumber={info.number}
-          inputAboutMe={info.aboutMe}
+          inputPhoneNumber={info.phone_number}
+          inputAboutMe={info.about_me}
           arrowClicked={() => setIsArrowDivClicked(true)}
           handleSubmit={handleSubmit}
           name={errors.name}
-          lastName={errors.lastName}
+          surname={errors.surname}
           email={errors.email}
-          number={errors.number}
+          phoneNumber={errors.phone_number}
           onSubmit={onSubmit}
           handleChange={handleChange}
           arrowDivClicked={() => setIsArrowDivClicked(true)}
           registerName={register("name", { required: true, minLength: 2 })}
-          registerLastName={register("lastName", {
+          registerSurname={register("surname", {
             required: true,
             minLength: 2,
           })}
           registerImage={register("image", { required: true })}
-          registerAboutMe={register("aboutMe")}
+          registerAboutMe={register("about_me")}
           registerEmail={register("email", {
             required: true,
           })}
-          registerNumber={register("number", { required: true })}
+          registerPhoneNumber={register("phone_number", { required: true })}
+          setInfo={setInfo}
+          info={info}
         />
       ) : (
         <FirstPageContainer>
@@ -72,9 +74,9 @@ export default function FirstInfoPage(props) {
             isSubmitted={props.isSubmitted}
             handleSubmit={handleSubmit}
             name={errors.name}
-            lastName={errors.lastName}
+            surname={errors.surname}
             email={errors.email}
-            number={errors.number}
+            phoneNumber={errors.phone_number}
             onSubmit={onSubmit}
             handleChange={handleChange}
             arrowDivClicked={() => setIsArrowDivClicked(true)}
@@ -82,17 +84,17 @@ export default function FirstInfoPage(props) {
               required: true,
               pattern: /^[ა-ჰ]+$/,
             })}
-            registerLastName={register("lastName", {
+            registerSurname={register("surname", {
               required: true,
               pattern: /^[ა-ჰ]+$/,
             })}
             registerImage={register("image", { required: true })}
-            registerAboutMe={register("aboutMe")}
+            registerAboutMe={register("about_me")}
             registerEmail={register("email", {
               required: true,
               pattern: /^[^s@]+@redberry.ge$/,
             })}
-            registerNumber={register("number", {
+            registerPhoneNumber={register("phone_number", {
               required: true,
               pattern: /^(\+995\s\d{3}\s\d{2}\s\d{2}\s\d{2})$/,
             })}
@@ -111,7 +113,7 @@ export default function FirstInfoPage(props) {
               <TextSide>
                 <Name>
                   {errors.name ? " " : watch("name")}&nbsp;
-                  {errors.lastName ? " " : watch("lastName")}
+                  {errors.surname ? " " : watch("surname")}
                 </Name>
                 <Box>
                   {showEmailIcon && <img src={email} alt="" />}&nbsp;&nbsp;
@@ -122,12 +124,12 @@ export default function FirstInfoPage(props) {
                 <Box>
                   {showTelIcon && <img src={phone} />}&nbsp;&nbsp;
                   <EmailAndPhone>
-                    {errors.phone ? "" : watch("number")}
+                    {errors.phone_number ? "" : watch("phone_number")}
                   </EmailAndPhone>
                 </Box>
                 <AboutMeBox>
                   {showAboutMe && <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>}
-                  {watch("aboutMe")}
+                  {watch("about_me")}
                 </AboutMeBox>
               </TextSide>
               {image && (

@@ -24,7 +24,7 @@ export default function ResumePage(props) {
           <TextSide>
             <Name>
               {props.inputName}&nbsp;
-              {props.inputLastName}
+              {props.inputSurname}
             </Name>
             <Box>
               {props.email ? " " : <img src={email} alt="" />}
@@ -32,8 +32,8 @@ export default function ResumePage(props) {
             </Box>
             <Box>
               {" "}
-              {props.number ? "" : <img src={phone} />}
-              <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
+              {props.phoneNumber ? "" : <img src={phone} />}
+              <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
             </Box>
             <AboutMeBox>
               {props.inputAboutMe === "" ? (
@@ -61,28 +61,28 @@ export default function ResumePage(props) {
             </PositionText>
             <StartAndEndDate>
               {props.startDate}
-              {props.endDate}
+              {props.dueDate}
             </StartAndEndDate>
             <p>{props.description}</p>
           </ExperienceBox>
 
-          <ExperienceBox>
+          {/* <ExperienceBox>
             <PositionText>
               {props.position2}
               {props.employer2}
             </PositionText>
             <StartAndEndDate>
               {props.startDate2}
-              {props.endDate2}
+              {props.dueDate2}
             </StartAndEndDate>
             <p>{props.description2}</p>
-          </ExperienceBox>
+          </ExperienceBox> */}
         </ExperienceInfo>
         <EducationInfo>
           <EducationTitle>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</EducationTitle>
           <EducationBox>
             <UniversityText>
-              {props.university}
+              {props.institute}
               {props.degree}
             </UniversityText>
             <Graduate>{props.graduateDate}</Graduate>

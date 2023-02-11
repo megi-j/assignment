@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import FormBox from "./FormBox";
 import arrow from "../images/arrow.png";
-import SecondInfoPage from "./SecondInfoPage";
 
 export default function FillInfoFirstPage(props) {
   return (
@@ -16,16 +15,16 @@ export default function FillInfoFirstPage(props) {
       <FormBox
         handleSubmit={props.handleSubmit}
         name={props.name}
-        lastName={props.lastName}
+        surname={props.surname}
         email={props.email}
-        number={props.number}
+        phoneNumber={props.phoneNumber}
         onSubmit={props.onSubmit}
         registerName={props.registerName}
-        registerLastName={props.registerLastName}
+        registerSurname={props.registerSurname}
         registerImage={props.registerImage}
         registerAboutMe={props.registerAboutMe}
         registerEmail={props.registerEmail}
-        registerNumber={props.registerNumber}
+        registerPhoneNumber={props.registerPhoneNumber}
         handleChange={props.handleChange}
         onFocusEmail={props.onFocusEmail}
         onFocusTel={props.onFocusTel}

@@ -94,10 +94,10 @@ export default function FormInsideBox(props) {
           <Label>დამთავრების რიცხვი</Label>
           <InputIconBox
             style={{
-              border: props.endDate ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.dueDate ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="date" {...props.registerEndDate} />
+            <Input type="date" {...props.registerDueDate} />
           </InputIconBox>
           <Input />
         </InputBox>

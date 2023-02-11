@@ -16,9 +16,10 @@ export default function SecondInfoPage(props) {
   const [isMoreExperienceButtonClicked, setIsMoreExperienceButtonClicked] =
     useState(false);
   const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
-  const [secondPageInfo, setSecondPageInfo] = useState();
+  const [experiences, setExperiences] = useState([]);
   const [showExperience, setShowExperience] = useState(false);
   const [showSecondPageResult, setSecondPageResult] = useState(false);
+  const [isFirstExperienceSubmit, setIsFirstExperienceSubmit] = useState(false);
   const {
     register,
     watch,
@@ -28,9 +29,18 @@ export default function SecondInfoPage(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    setSecondPageInfo(data);
+    setExperiences(experiences.push(data));
+    props.setInfo({ ...props.info, experiences });
+
     setIsSecondPageSubmit(true);
   };
+  // const onSubmit2 = (data) => {
+  //   // setExperiences(experiences.push(data));
+  //   // props.setInfo({ ...props.info, experiences });
+  //   console.log("data");
+  //   setIsFirstExperienceSubmit(true);
+  // };
+  console.log(props.info);
   // const handleButtonClick = (event) => {
   //   event.preventDefault();
   //   setIsMoreExperienceButtonClicked(true);
@@ -49,23 +59,25 @@ export default function SecondInfoPage(props) {
       ) : isSecondPageSubmit ? (
         <ThirdInfoPage
           inputName={props.inputName}
-          inputLastName={props.inputLastName}
+          inputSurname={props.inputSurname}
           email={props.email}
           inputEmail={props.inputEmail}
-          number={props.number}
-          inputNumber={props.inputNumber}
+          phoneNumber={props.phoneNumber}
+          inputPhoneNumber={props.inputPhoneNumber}
           inputAboutMe={props.inputAboutMe}
           image={props.image}
-          position={secondPageInfo.position}
-          employer={secondPageInfo.employer}
-          startDate={secondPageInfo.startDate}
-          endDate={secondPageInfo.endDate}
-          description={secondPageInfo.description}
-          position2={secondPageInfo.position2}
-          employer2={secondPageInfo.employer2}
-          startDate2={secondPageInfo.startDate2}
-          endDate2={secondPageInfo.employer2}
-          description2={secondPageInfo.description2}
+          position={props.info.experiences[0].position}
+          employer={props.info.experiences[0].employer}
+          startDate={props.info.experiences[0].start_date}
+          dueDate={props.info.experiences[0].due_date}
+          description={props.info.experiences[0].description}
+          // position2={props.info.experiences[0].position2}
+          // employer2={props.info.experiences[0].employer2}
+          // startDate2={props.info.experiences[0].start_date2}
+          // dueDate2={props.info.experiences[0].due_date2}
+          // description2={props.info.experiences[0].description2}
+          info={props.info}
+          setInfo={props.setInfo}
         />
       ) : (
         <SecondPageContainer>
@@ -87,39 +99,40 @@ export default function SecondInfoPage(props) {
                 required: true,
                 minLength: 2,
               })}
-              registerStartDate={register("startDate", { required: true })}
-              registerEndDate={register("endDate", { required: true })}
+              registerStartDate={register("start_date", { required: true })}
+              registerDueDate={register("due_date", { required: true })}
               registerDescription={register("description", { required: true })}
               handleSubmit={handleSubmit}
               onSubmit={onSubmit}
               backClicked={backClicked}
               position={errors.position}
               employer={errors.employer}
-              startDate={errors.startDate}
-              endDate={errors.endDate}
+              startDate={errors.start_date}
+              dueDate={errors.due_date}
               description={errors.description}
-              position2={errors.position2}
-              registerPosition2={register("position2", {
-                required: true,
-                minLength: 2,
-              })}
-              employer2={errors.employer2}
-              registerEmployer2={register("employer2", {
-                required: true,
-                minLength: 2,
-              })}
-              startDate2={errors.startDate2}
-              registerStartDate2={register("startDate2", { required: true })}
-              endDate2={errors.endDate2}
-              registerEndDate2={register("endDate2", { required: true })}
-              description2={errors.description2}
-              registerDescription2={register("description2", {
-                required: true,
-              })}
+              // position2={errors.position2}
+              // registerPosition2={register("position2", {
+              //   required: true,
+              //   minLength: 2,
+              // })}
+              // employer2={errors.employer2}
+              // registerEmployer2={register("employer2", {
+              //   required: true,
+              //   minLength: 2,
+              // })}
+              // startDate2={errors.start_date2}
+              // registerStartDate2={register("start_date2", { required: true })}
+              // dueDate2={errors.dueDate2}
+              // registerDueDate2={register("due_date2", { required: true })}
+              // description2={errors.description2}
+              // registerDescription2={register("description2", {
+              //   required: true,
+              // })}
               isMoreExperienceButtonClicked={isMoreExperienceButtonClicked}
               handleButtonClick={() => setIsMoreExperienceButtonClicked(true)}
               showExperience={() => setShowExperience(true)}
               showSecondPageResult={() => setSecondPageResult(true)}
+              // onSubmit2={onSubmit2}
             />
           </FillInfoExperienceSide>
 
@@ -128,7 +141,7 @@ export default function SecondInfoPage(props) {
               <TextSide>
                 <Name>
                   {props.inputName}&nbsp;
-                  {props.inputLastName}
+                  {props.inputSurname}
                 </Name>
 
                 <Box>
@@ -137,8 +150,8 @@ export default function SecondInfoPage(props) {
                 </Box>
                 <Box>
                   {" "}
-                  {props.number ? "" : <img src={phone} />}
-                  <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
+                  {props.phoneNumber ? "" : <img src={phone} />}
+                  <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
                 </Box>
                 <AboutMeBox>
                   {props.inputAboutMe === "" ? (
@@ -171,26 +184,26 @@ export default function SecondInfoPage(props) {
                   {errors.employer ? " " : watch("employer")}
                 </PositionText>
                 <StartAndEndDate>
-                  {errors.startDate ? " " : watch("startDate")}&nbsp;- &nbsp;
-                  {errors.endDate ? " " : watch("endDate")}
+                  {errors.start_date ? " " : watch("start_date")}&nbsp;- &nbsp;
+                  {errors.due_date ? " " : watch("due_date")}
                 </StartAndEndDate>
                 <p>{errors.description ? " " : watch("description")}</p>
               </ExperienceBox>
 
-              {isMoreExperienceButtonClicked && (
+              {/* {isFirstExperienceSubmit && (
                 <ExperienceBox>
                   <PositionText>
                     {errors.position2 ? " " : watch("position2")}{" "}
                     {errors.employer2 ? " " : watch("employer2")}
                   </PositionText>
                   <StartAndEndDate>
-                    {errors.startDate2 ? " " : watch("startDate2")}&nbsp;-
+                    {errors.start_date2 ? " " : watch("start_date2")}&nbsp;-
                     &nbsp;
-                    {errors.endDate2 ? " " : watch("endDate2")}
+                    {errors.due_date2 ? " " : watch("due_date2")}
                   </StartAndEndDate>
                   <p>{errors.description2 ? " " : watch("description2")}</p>
                 </ExperienceBox>
-              )}
+              )} */}
             </SecondPageResult>
             <img
               style={{

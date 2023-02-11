@@ -6,16 +6,16 @@ export default function EducationForm(props) {
   return (
     <Form onSubmit={props.handleSubmit(props.onSubmit)}>
       <ThirdFormInsideBox
-        registerUniversity={props.registerUniversity}
+        registerInstitute={props.registerInstitute}
         registerDegree={props.registerDegree}
         registerGraduateDate={props.registerGraduateDate}
         registerEducationDescription={props.registerEducationDescription}
         educationDescription={props.educationDescription}
-        university={props.university}
+        institute={props.institute}
         degree={props.degree}
         graduateDate={props.graduateDate}
       />
-      <MoreEducationButton onClick={props.handleButtonClick}>
+      <MoreEducationButton type="submit" onClick={props.handleButtonClick}>
         სხვა სასწავლებლის დამატება
       </MoreEducationButton>
       <ButtonBox>

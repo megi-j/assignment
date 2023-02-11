@@ -39,15 +39,13 @@ export default function FormBox(props) {
           <Label htmlFor="">გვარი</Label>
           <InputIconBox
             style={{
-              border: props.lastName
-                ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+              border: props.surname ? "1px solid #EF5050" : "1px solid #98E37E",
             }}
           >
-            <Input type="text" {...props.registerLastName} />
+            <Input type="text" {...props.registerSurname} />
             <img
               style={{
-                display: props.lastName ? "none" : "block",
+                display: props.surname ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -55,7 +53,7 @@ export default function FormBox(props) {
             <img
               style={{
                 marginRight: "-50px",
-                display: props.lastName ? "block" : "none",
+                display: props.surname ? "block" : "none",
               }}
               src={red}
               alt=""
@@ -158,17 +156,19 @@ export default function FormBox(props) {
           <Label>მობილურის ნომერი</Label>
           <InputIconBox
             style={{
-              border: props.number ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.phoneNumber
+                ? "1px solid #EF5050"
+                : "1px solid #98E37E",
             }}
           >
             <Input
               type="tel"
-              {...props.registerNumber}
+              {...props.registerPhoneNumber}
               onFocus={props.onFocusTel}
             />
             <img
               style={{
-                display: props.number ? "none" : "block",
+                display: props.phoneNumber ? "none" : "block",
               }}
               src={green}
               alt=""
@@ -176,7 +176,7 @@ export default function FormBox(props) {
             <img
               style={{
                 marginRight: "-50px",
-                display: props.number ? "block" : "none",
+                display: props.phoneNumber ? "block" : "none",
               }}
               src={red}
               alt=""

@@ -9,11 +9,12 @@ import email from "../images/email.png";
 import phone from "../images/phone.png";
 import SecondInfoPage from "./SecondInfoPage";
 import ResumePage from "./ResumePage";
+import axios from "axios";
 
 export default function ThirdInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
   const [isBackClicked, setIsBackClicked] = useState(false);
-  const [thirdPageInfo, setThirdPageInfo] = useState();
+  const [educations, setEducations] = useState([]);
   const [isThirdPageSubmit, setIsThirdPageSubmit] = useState(false);
 
   const {
@@ -25,10 +26,18 @@ export default function ThirdInfoPage(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    setThirdPageInfo(data);
-    setIsThirdPageSubmit(true);
-  };
+    setEducations(educations.push(data));
+    props.setInfo({ ...props.info, educations });
 
+    setIsThirdPageSubmit(true);
+
+    axios.post("https://resume.redberryinternship.ge/api/cvs", props.info, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  };
+  console.log(props.info);
   return isArrowClicked ? (
     <App />
   ) : isBackClicked ? (
@@ -36,27 +45,27 @@ export default function ThirdInfoPage(props) {
   ) : isThirdPageSubmit ? (
     <ResumePage
       inputName={props.inputName}
-      inputLastName={props.inputLastName}
+      inputSurname={props.inputSurname}
       email={props.email}
       inputEmail={props.inputEmail}
-      number={props.number}
-      inputNumber={props.inputNumber}
+      phoneNumber={props.phoneNumber}
+      inputPhoneNumber={props.inputPhoneNumber}
       inputAboutMe={props.inputAboutMe}
       image={props.image}
       position={props.position}
       employer={props.employer}
       startDate={props.startDate}
-      endDate={props.endDate}
+      dueDate={props.dueDate}
       description={props.description}
-      position2={props.position2}
-      employer2={props.employer2}
-      startDate2={props.startDate2}
-      endDate2={props.endDate2}
-      description2={props.description2}
-      university={thirdPageInfo.university}
-      degree={thirdPageInfo.degree}
-      graduateDate={thirdPageInfo.graduateDate}
-      educationDesctiption={thirdPageInfo.educationDesctiption}
+      // position2={props.position2}
+      // employer2={props.employer2}
+      // startDate2={props.startDate2}
+      // dueDate2={props.dueDate2}
+      // description2={props.description2}
+      institute={props.info.educations[0].institute}
+      degree={props.info.educations[0].degree}
+      graduateDate={props.info.educations[0].due_date}
+      educationDesctiption={props.info.educations[0].educationDesctiption}
     />
   ) : (
     <ThirdPageContainer>
@@ -72,19 +81,19 @@ export default function ThirdInfoPage(props) {
         <EducationForm
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          registerUniversity={register("university", {
+          registerInstitute={register("institute", {
             required: true,
             minLength: 2,
           })}
           registerDegree={register("degree", { required: true })}
-          registerGraduateDate={register("graduateDate", { required: true })}
-          registerEducationDescription={register("educationDesctiption", {
+          registerGraduateDate={register("due_date", { required: true })}
+          registerEducationDescription={register("description", {
             required: true,
           })}
           educationDescription={errors.educationDescription}
-          university={errors.university}
+          institute={errors.institute}
           degree={errors.degree}
-          graduateDate={errors.graduateDate}
+          graduateDate={errors.due_date}
           backClicked={() => setIsBackClicked(true)}
         />
       </FillInfoEducationSide>
@@ -94,7 +103,7 @@ export default function ThirdInfoPage(props) {
           <TextSide>
             <Name>
               {props.inputName}&nbsp;
-              {props.inputLastName}
+              {props.inputSurname}
             </Name>
             <Box>
               {props.email ? " " : <img src={email} alt="" />}
@@ -102,8 +111,8 @@ export default function ThirdInfoPage(props) {
             </Box>
             <Box>
               {" "}
-              {props.number ? "" : <img src={phone} />}
-              <EmailAndPhone>{props.inputNumber}</EmailAndPhone>
+              {props.phoneNumber ? "" : <img src={phone} />}
+              <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
             </Box>
             <AboutMeBox>
               {props.inputAboutMe === "" ? (
@@ -131,37 +140,33 @@ export default function ThirdInfoPage(props) {
             </PositionText>
             <StartAndEndDate>
               {props.startDate}
-              {props.endDate}
+              {props.dueDate}
             </StartAndEndDate>
             <p>{props.description}</p>
           </ExperienceBox>
 
-          <ExperienceBox>
+          {/* <ExperienceBox>
             <PositionText>
               {props.position2}
               {props.employer2}
             </PositionText>
             <StartAndEndDate>
               {props.startDate2}
-              {props.endDate2}
+              {props.dueDate2}
             </StartAndEndDate>
             <p>{props.description2}</p>
-          </ExperienceBox>
+          </ExperienceBox> */}
         </SecondPageResult>
 
         <ThirdPageResult>
           <EducationTitle>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</EducationTitle>
           <EducationBox>
             <UniversityText>
-              {errors.university ? " " : watch("university")},&nbsp;
+              {errors.institute ? " " : watch("institute")},&nbsp;
               {errors.degree ? " " : watch("degree")}
             </UniversityText>
-            <Graduate>
-              {errors.graduateDate ? " " : watch("graduateDate")}
-            </Graduate>
-            <p>
-              {errors.educationDesctiption ? "" : watch("educationDesctiption")}
-            </p>
+            <Graduate>{errors.due_date ? " " : watch("due_date")}</Graduate>
+            <p>{errors.description ? "" : watch("description")}</p>
           </EducationBox>
         </ThirdPageResult>
       </ShowInfoSide>
