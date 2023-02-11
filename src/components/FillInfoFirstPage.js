@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import FormBox from "./FormBox";
-import arrow from "../images/Vector.png";
+import arrow from "../images/arrow.png";
 import SecondInfoPage from "./SecondInfoPage";
 
 export default function FillInfoFirstPage(props) {

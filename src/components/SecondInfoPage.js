@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import arrow from "../images/Vector.png";
+import arrow from "../images/arrow.png";
 import { useContext, useState } from "react";
 import App from "../App";
 import email from "../images/email.png";

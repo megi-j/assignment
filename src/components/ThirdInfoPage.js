@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import arrow from "../images/Vector.png";
+import arrow from "../images/arrow.png";
 import { useState } from "react";
 import App from "../App";
 import EducationForm from "./EducationForm";
@@ -8,10 +8,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
 import SecondInfoPage from "./SecondInfoPage";
+import ResumePage from "./ResumePage";
 
 export default function ThirdInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
   const [isBackClicked, setIsBackClicked] = useState(false);
+  const [thirdPageInfo, setThirdPageInfo] = useState();
+  const [isThirdPageSubmit, setIsThirdPageSubmit] = useState(false);
 
   const {
     register,
@@ -22,12 +25,39 @@ export default function ThirdInfoPage(props) {
 
   const onSubmit = (data) => {
     console.log(data);
+    setThirdPageInfo(data);
+    setIsThirdPageSubmit(true);
   };
 
   return isArrowClicked ? (
     <App />
   ) : isBackClicked ? (
     <SecondInfoPage />
+  ) : isThirdPageSubmit ? (
+    <ResumePage
+      inputName={props.inputName}
+      inputLastName={props.inputLastName}
+      email={props.email}
+      inputEmail={props.inputEmail}
+      number={props.number}
+      inputNumber={props.inputNumber}
+      inputAboutMe={props.inputAboutMe}
+      image={props.image}
+      position={props.position}
+      employer={props.employer}
+      startDate={props.startDate}
+      endDate={props.endDate}
+      description={props.description}
+      position2={props.position2}
+      employer2={props.employer2}
+      startDate2={props.startDate2}
+      endDate2={props.endDate2}
+      description2={props.description2}
+      university={thirdPageInfo.university}
+      degree={thirdPageInfo.degree}
+      graduateDate={thirdPageInfo.graduateDate}
+      educationDesctiption={thirdPageInfo.educationDesctiption}
+    />
   ) : (
     <ThirdPageContainer>
       <FillInfoEducationSide>
