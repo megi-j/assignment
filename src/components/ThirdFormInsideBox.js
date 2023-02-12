@@ -77,6 +77,7 @@ export default function ThirdFormInsideBox(props) {
                 width: "100%",
                 height: "48px",
                 outline: "none",
+                border: "none",
               }}
               name="option"
               {...props.registerDegree}
@@ -107,30 +108,34 @@ export default function ThirdFormInsideBox(props) {
 
       <InfoBox>
         <InputBox style={{ marginBottom: 58 }}>
-          <Label>აღწერა</Label>
-          <textarea
+          <Label style={{ marginBottom: 10 }}>აღწერა</Label>
+          <Textarea
             name=""
             id=""
             cols="30"
             rows="10"
             placeholder="განათლების აღწერა"
             style={{
-              width: "100%",
-              height: 123,
-              resize: "none",
-              outline: "none",
               border: props.educationDescription
                 ? "1px solid #EF5050"
                 : "1px solid #98E37E",
             }}
             {...props.registerEducationDescription}
-          ></textarea>
+          ></Textarea>
         </InputBox>
       </InfoBox>
       <hr style={{ width: "95%", margin: "0 auto" }} />
     </FormInsideDiv>
   );
 }
+const Textarea = styled.textarea`
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  padding: 13px 16px;
+`;
 const Input = styled.input`
   width: 90%;
   height: 48px;
@@ -146,9 +151,15 @@ const InputIconBox = styled.div`
   border-radius: 4px;
   background: #ffffff;
   border: 1px solid #bcbcbc;
+  padding: 0 16px;
 `;
 const FormInsideDiv = styled.div`
   width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 `;
 const InfoBox = styled.div`
   width: 100%;
@@ -162,6 +173,8 @@ const InputBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
   padding: 8px 24px;
 `;
 const Label = styled.label`

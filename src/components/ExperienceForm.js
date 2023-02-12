@@ -18,6 +18,14 @@ export default function ExperienceForm(props) {
         showExperience={props.showExperience}
         showSecondPageResult={props.showSecondPageResult}
       />
+      {/* {props.isSecondPageSubmit &&
+        props.data.map((item) => {
+          return (
+            <FormInsideBox
+            
+            />
+          );
+        })} */}
       {/* {props.isMoreExperienceButtonClicked && (
         <FormInsideBox
           position={props.position2}
@@ -33,13 +41,17 @@ export default function ExperienceForm(props) {
         />
       )} */}
       <MoreExperienceButton
+      // type="submit"
+      // onClick={props.more}
       // onClick={props.handleSubmit(props.onSubmit2)}
       >
         მეტი გამოცდილების დამატება
       </MoreExperienceButton>
       <ButtonBox>
         <BackButton onClick={props.backClicked}>ᲣᲙᲐᲜ</BackButton>
-        <SubmitButton type="submit">ᲨᲔᲛᲓᲔᲒᲘ</SubmitButton>
+        <SubmitButton type="submit" onClick={props.nextButtonClicked}>
+          ᲨᲔᲛᲓᲔᲒᲘ
+        </SubmitButton>
       </ButtonBox>
     </Form>
   );
@@ -83,4 +95,10 @@ const MoreExperienceButton = styled.button`
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
+  height: 80%;
+  margin: 77px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 `;

@@ -10,7 +10,11 @@ export default function FormBox(props) {
           <Label htmlFor="">სახელი</Label>
           <InputIconBox
             style={{
-              border: props.name ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.name
+                ? "1px solid #EF5050"
+                : props.name == undefined
+                ? "1px solid #98E37E"
+                : "1px solid #BCBCBC",
             }}
           >
             <Input type="text" {...props.registerName} />
@@ -246,9 +250,10 @@ const Input = styled.input`
   outline: none;
 `;
 const Label = styled.label`
-  font-weight: 500;
+  font-weight: bold;
   font-size: 16px;
   color: #000000;
+  font-family: "HelveticaNeue", sans-serif;
 `;
 const SubmitButton = styled.button`
   width: 151px;

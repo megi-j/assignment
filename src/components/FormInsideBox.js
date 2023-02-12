@@ -77,7 +77,7 @@ export default function FormInsideBox(props) {
         </InputBox>
       </InfoBox>
 
-      <InfoBox>
+      <InfoBox style={{}}>
         <InputBox>
           <Label>დაწყების რიცხვი</Label>
           <InputIconBox
@@ -99,39 +99,46 @@ export default function FormInsideBox(props) {
           >
             <Input type="date" {...props.registerDueDate} />
           </InputIconBox>
-          <Input />
         </InputBox>
       </InfoBox>
 
       <InfoBox>
         <InputBox style={{ marginBottom: 58 }}>
-          <Label>აღწერა</Label>
-          <textarea
+          <Label style={{ marginBottom: 10 }}>აღწერა</Label>
+          <Textarea
             name=""
             id=""
             cols="30"
             rows="10"
             placeholder="როლი თანამდებობაზე და ზოგადი აღწერა"
             style={{
-              width: "100%",
-              height: 123,
-              resize: "none",
-              outline: "none",
               border: props.description
                 ? "1px solid #EF5050"
                 : "1px solid #98E37E",
             }}
             {...props.registerDescription}
-          ></textarea>
+          ></Textarea>
         </InputBox>
       </InfoBox>
       <hr style={{ width: "95%", margin: "0 auto" }} />
     </FormInsideDiv>
   );
 }
-
+const Textarea = styled.textarea`
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  padding: 13px 16px;
+`;
 const FormInsideDiv = styled.div`
   width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 `;
 const Input = styled.input`
   width: 90%;
@@ -148,9 +155,10 @@ const InputIconBox = styled.div`
   border-radius: 4px;
   background: #ffffff;
   border: 1px solid #bcbcbc;
+  padding: 0 16px;
 `;
 const Label = styled.label`
-  font-weight: 500;
+  font-weight: bold;
   font-size: 16px;
   color: #000000;
 `;
@@ -166,5 +174,7 @@ const InputBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
   padding: 8px 24px;
 `;

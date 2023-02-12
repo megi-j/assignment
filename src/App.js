@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import HomePage from "./components/HomePage";
 import FirstInfoPage from "./components/FirstInfoPage";
-
+// import "./fonts/HelveticaNeue-LightExt.woff";
 const GlobalStyles = createGlobalStyle`
 *{
   margin: 0;
@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   list-style-type: none;
   text-decoration: none;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 `;
 
@@ -20,7 +21,12 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Helmet></Helmet>
+      {/* <Helmet>
+        <link
+          href="https://fonts.cdnfonts.com/css/helvetica-neue-9"
+          rel="stylesheet"
+        />
+      </Helmet> */}
       {isRezumeAddClicked ? (
         <FirstInfoPage />
       ) : (

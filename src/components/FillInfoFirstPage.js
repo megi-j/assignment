@@ -12,6 +12,7 @@ export default function FillInfoFirstPage(props) {
         <Title>ᲞᲘᲠᲐᲓᲘ ᲘᲜᲤᲝ</Title>
         <PageNumber>1/3</PageNumber>
       </Header>
+
       <FormBox
         handleSubmit={props.handleSubmit}
         name={props.name}
@@ -30,6 +31,8 @@ export default function FillInfoFirstPage(props) {
         onFocusTel={props.onFocusTel}
         onInput={props.onInput}
         isSubmittedFirstPage={props.isSubmittedFirstPage}
+        onBlur={props.onBlur}
+        borderColor={props.borderColor}
       />
     </FillInfoSide>
   );
@@ -57,6 +60,7 @@ const Title = styled.h2`
   font-weight: 700;
   font-size: 24px;
   color: #1a1a1a;
+  font-family: "HelveticaNeue";
 `;
 const PageNumber = styled.p`
   font-weight: 400;

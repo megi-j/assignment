@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import SecondInfoPage from "./SecondInfoPage";
 import FillInfoFirstPage from "./FillInfoFirstPage";
@@ -16,7 +16,7 @@ export default function FirstInfoPage(props) {
   const [showEmailIcon, setShowEmailIcon] = useState(false);
   const [showTelIcon, setShowTelIcon] = useState(false);
   const [showAboutMe, setShowAboutMe] = useState(false);
-
+  const [isBackClicked, setIsBackClicked] = useState(false);
   const {
     register,
     watch,
@@ -29,8 +29,22 @@ export default function FirstInfoPage(props) {
     setInfo(data);
     setIsSubmittedFirstPage(true);
   };
+  // useEffect(() => {
+  //   localStorage.setItem("info", JSON.stringify(info));
+  // }, [info]);
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem("info"));
+  //   if (items) {
+  //     setInfo(items);
+  //   }
+  // }, []);
+
   const handleChange = (e) => {
     setImage(e.target.files[0]);
+  };
+  const backClicked = () => {
+    // e.preventDefault();
+    setIsBackClicked(true);
   };
 
   return (
@@ -67,6 +81,8 @@ export default function FirstInfoPage(props) {
           registerPhoneNumber={register("phone_number", { required: true })}
           setInfo={setInfo}
           info={info}
+          isBackClicked={isBackClicked}
+          backClicked={backClicked}
         />
       ) : (
         <FirstPageContainer>
@@ -111,10 +127,14 @@ export default function FirstInfoPage(props) {
               }}
             >
               <TextSide>
+                {/* {isBackClicked ? (
+                  <Name>lasha</Name>
+                ) : ( */}
                 <Name>
                   {errors.name ? " " : watch("name")}&nbsp;
                   {errors.surname ? " " : watch("surname")}
                 </Name>
+                {/* )} */}
                 <Box>
                   {showEmailIcon && <img src={email} alt="" />}&nbsp;&nbsp;
                   <EmailAndPhone>

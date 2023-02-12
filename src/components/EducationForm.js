@@ -63,5 +63,10 @@ const MoreEducationButton = styled.button`
 `;
 const Form = styled.form`
   width: 80%;
-  margin: 0 auto;
+  height: 80%;
+  margin: 77px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 `;

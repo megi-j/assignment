@@ -10,6 +10,7 @@ import phone from "../images/phone.png";
 import SecondInfoPage from "./SecondInfoPage";
 import ResumePage from "./ResumePage";
 import axios from "axios";
+import smallLogo from "../images/logo-3.png";
 
 export default function ThirdInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
@@ -31,11 +32,11 @@ export default function ThirdInfoPage(props) {
 
     setIsThirdPageSubmit(true);
 
-    axios.post("https://resume.redberryinternship.ge/api/cvs", props.info, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    // axios.post("https://resume.redberryinternship.ge/api/cvs", props.info, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
   };
   console.log(props.info);
   return isArrowClicked ? (
@@ -99,53 +100,54 @@ export default function ThirdInfoPage(props) {
       </FillInfoEducationSide>
 
       <ShowInfoSide>
-        <FirstPageResult>
-          <TextSide>
-            <Name>
-              {props.inputName}&nbsp;
-              {props.inputSurname}
-            </Name>
-            <Box>
-              {props.email ? " " : <img src={email} alt="" />}
-              <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
-            </Box>
-            <Box>
-              {" "}
-              {props.phoneNumber ? "" : <img src={phone} />}
-              <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
-            </Box>
-            <AboutMeBox>
-              {props.inputAboutMe === "" ? (
-                " "
-              ) : (
-                <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
-              )}
-              {props.inputAboutMe}
-            </AboutMeBox>
-          </TextSide>
-          {props.image && (
-            <img
-              style={{ width: 246, height: 246, borderRadius: "50%" }}
-              src={URL.createObjectURL(props.image)}
-            />
-          )}
-        </FirstPageResult>
+        <div style={{ height: "100%" }}>
+          <FirstPageResult>
+            <TextSide>
+              <Name>
+                {props.inputName}&nbsp;
+                {props.inputSurname}
+              </Name>
+              <Box>
+                {props.email ? " " : <img src={email} alt="" />}&nbsp;&nbsp;
+                <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
+              </Box>
+              <Box>
+                {" "}
+                {props.phoneNumber ? "" : <img src={phone} />}&nbsp;&nbsp;
+                <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
+              </Box>
+              <AboutMeBox>
+                {props.inputAboutMe === "" ? (
+                  " "
+                ) : (
+                  <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
+                )}
+                {props.inputAboutMe}
+              </AboutMeBox>
+            </TextSide>
+            {props.image && (
+              <img
+                style={{ width: 246, height: 246, borderRadius: "50%" }}
+                src={URL.createObjectURL(props.image)}
+              />
+            )}
+          </FirstPageResult>
 
-        <SecondPageResult>
-          <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
-          <ExperienceBox>
-            <PositionText>
-              {props.position}
-              {props.employer}
-            </PositionText>
-            <StartAndEndDate>
-              {props.startDate}
-              {props.dueDate}
-            </StartAndEndDate>
-            <p>{props.description}</p>
-          </ExperienceBox>
+          <SecondPageResult>
+            <ExperienceTitle>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</ExperienceTitle>
+            <ExperienceBox>
+              <PositionText>
+                {props.position}
+                {props.employer}
+              </PositionText>
+              <StartAndEndDate>
+                {props.startDate}
+                {props.dueDate}
+              </StartAndEndDate>
+              <p>{props.description}</p>
+            </ExperienceBox>
 
-          {/* <ExperienceBox>
+            {/* <ExperienceBox>
             <PositionText>
               {props.position2}
               {props.employer2}
@@ -156,19 +158,28 @@ export default function ThirdInfoPage(props) {
             </StartAndEndDate>
             <p>{props.description2}</p>
           </ExperienceBox> */}
-        </SecondPageResult>
+          </SecondPageResult>
 
-        <ThirdPageResult>
-          <EducationTitle>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</EducationTitle>
-          <EducationBox>
-            <UniversityText>
-              {errors.institute ? " " : watch("institute")},&nbsp;
-              {errors.degree ? " " : watch("degree")}
-            </UniversityText>
-            <Graduate>{errors.due_date ? " " : watch("due_date")}</Graduate>
-            <p>{errors.description ? "" : watch("description")}</p>
-          </EducationBox>
-        </ThirdPageResult>
+          <ThirdPageResult>
+            <EducationTitle>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</EducationTitle>
+            <EducationBox>
+              <UniversityText>
+                {errors.institute ? " " : watch("institute")},&nbsp;
+                {errors.degree ? " " : watch("degree")}
+              </UniversityText>
+              <Graduate>{errors.due_date ? " " : watch("due_date")}</Graduate>
+              <p>{errors.description ? "" : watch("description")}</p>
+            </EducationBox>
+          </ThirdPageResult>
+        </div>
+
+        <img
+          style={{
+            padding: 42,
+          }}
+          src={smallLogo}
+          alt=""
+        />
       </ShowInfoSide>
     </ThirdPageContainer>
   );
@@ -186,9 +197,12 @@ const UniversityText = styled.p`
 `;
 const EducationBox = styled.div`
   width: 100%;
-  height: 50%;
+  height: 70%;
   border-bottom: 1px solid #c8c8c8;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 const EducationTitle = styled.h4`
   font-weight: 700;
@@ -228,7 +242,11 @@ const SecondPageResult = styled.div`
 `;
 const ExperienceBox = styled.div`
   width: 100%;
-  height: 50%;
+  height: 70%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 const Name = styled.h1`
   font-weight: 700;
@@ -286,7 +304,6 @@ const ThirdPageContainer = styled.div`
   margin: 0 auto;
   display: flex;
   overflow-y: scroll;
-  border: 1px solid red;
 `;
 const FillInfoEducationSide = styled.div`
   width: 50%;

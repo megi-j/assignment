@@ -41,6 +41,7 @@ const Button = styled.button`
   font-size: 20px;
   z-index: 1;
   cursor: pointer;
+  font-family: "HelveticaNeue";
 `;
 const Main = styled.main`
   width: 100%;

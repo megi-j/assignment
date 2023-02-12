@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import arrow from "../images/arrow.png";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import App from "../App";
 import email from "../images/email.png";
 import phone from "../images/phone.png";
@@ -12,7 +12,7 @@ import ThirdInfoPage from "./ThirdInfoPage";
 
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
-  const [isBackClicked, setIsBackClicked] = useState(false);
+
   const [isMoreExperienceButtonClicked, setIsMoreExperienceButtonClicked] =
     useState(false);
   const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
@@ -20,6 +20,7 @@ export default function SecondInfoPage(props) {
   const [showExperience, setShowExperience] = useState(false);
   const [showSecondPageResult, setSecondPageResult] = useState(false);
   const [isFirstExperienceSubmit, setIsFirstExperienceSubmit] = useState(false);
+  const [isNextButtonClicked, setIsNextButtonClicked] = useState(false);
   const {
     register,
     watch,
@@ -31,30 +32,34 @@ export default function SecondInfoPage(props) {
     console.log(data);
     setExperiences(experiences.push(data));
     props.setInfo({ ...props.info, experiences });
-
     setIsSecondPageSubmit(true);
   };
-  // const onSubmit2 = (data) => {
-  //   // setExperiences(experiences.push(data));
-  //   // props.setInfo({ ...props.info, experiences });
-  //   console.log("data");
-  //   setIsFirstExperienceSubmit(true);
+  // const onSubmit2 = (info) => {
+  //   console.log(info);
+  //   setExperiences(experiences.push(info));
+  //   props.setInfo({ ...props.info, experiences });
+  //   setIsSecondPageSubmit(true);
+  //   // setIsFirstExperienceSubmit(true);
   // };
-  console.log(props.info);
+  // console.log(props.info);
   // const handleButtonClick = (event) => {
   //   event.preventDefault();
   //   setIsMoreExperienceButtonClicked(true);
   // };
-  const backClicked = (e) => {
-    e.preventDefault();
-    setIsBackClicked(true);
-  };
-
+  // useEffect(() => {
+  //   localStorage.setItem("info", JSON.stringify(props.info));
+  // }, [props.info]);
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem("info"));
+  //   if (items) {
+  //     props.setInfo(items);
+  //   }
+  // }, []);
   return (
     <>
       {isArrowClicked ? (
         <App />
-      ) : isBackClicked ? (
+      ) : props.isBackClicked ? (
         <FirstInfoPage />
       ) : isSecondPageSubmit ? (
         <ThirdInfoPage
@@ -104,7 +109,7 @@ export default function SecondInfoPage(props) {
               registerDescription={register("description", { required: true })}
               handleSubmit={handleSubmit}
               onSubmit={onSubmit}
-              backClicked={backClicked}
+              backClicked={props.backClicked}
               position={errors.position}
               employer={errors.employer}
               startDate={errors.start_date}
@@ -133,64 +138,99 @@ export default function SecondInfoPage(props) {
               showExperience={() => setShowExperience(true)}
               showSecondPageResult={() => setSecondPageResult(true)}
               // onSubmit2={onSubmit2}
+              more={() => setIsMoreExperienceButtonClicked(true)}
+              // data={props.info.experiences}
+              isSecondPageSubmit={isSecondPageSubmit}
+              nextButtonClicked={() => setIsNextButtonClicked(true)}
             />
+            {/* {isSecondPageSubmit &&
+              props.info.experiences.map((item) => {
+                return (
+                  <ExperienceForm
+                    onSubmit={onSubmit2}
+                    handleSubmit={handleSubmit}
+                    registerPosition={register("position2", {
+                      required: true,
+                      minLength: 2,
+                    })}
+                    registerEmployer={register("employer2", {
+                      required: true,
+                      minLength: 2,
+                    })}
+                    registerStartDate={register("start_date2", {
+                      required: true,
+                    })}
+                    registerDueDate={register("due_date2", { required: true })}
+                    registerDescription={register("description2", {
+                      required: true,
+                    })}
+                    position={errors.position2}
+                    employer={errors.employer2}
+                    startDate={errors.start_date2}
+                    dueDate={errors.due_date2}
+                    description={errors.description2}
+                  />
+                );
+              })} */}
           </FillInfoExperienceSide>
 
           <ShowInfoSide>
-            <FirstPageResult>
-              <TextSide>
-                <Name>
-                  {props.inputName}&nbsp;
-                  {props.inputSurname}
-                </Name>
+            <div style={{ height: "100%" }}>
+              <FirstPageResult>
+                <TextSide>
+                  <Name>
+                    {props.inputName}&nbsp;
+                    {props.inputSurname}
+                  </Name>
 
-                <Box>
-                  {props.email ? " " : <img src={email} alt="" />}
-                  <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
-                </Box>
-                <Box>
-                  {" "}
-                  {props.phoneNumber ? "" : <img src={phone} />}
-                  <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
-                </Box>
-                <AboutMeBox>
-                  {props.inputAboutMe === "" ? (
-                    " "
-                  ) : (
-                    <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
-                  )}
-                  {props.inputAboutMe}
-                </AboutMeBox>
-              </TextSide>
-              {props.image && (
-                <img
-                  style={{ width: 246, height: 246, borderRadius: "50%" }}
-                  src={URL.createObjectURL(props.image)}
-                />
-              )}
-            </FirstPageResult>
+                  <Box>
+                    {props.email ? " " : <img src={email} alt="" />}&nbsp;&nbsp;
+                    <EmailAndPhone>{props.inputEmail}</EmailAndPhone>
+                  </Box>
+                  <Box>
+                    {" "}
+                    {props.phoneNumber ? "" : <img src={phone} />}&nbsp;&nbsp;
+                    <EmailAndPhone>{props.inputPhoneNumber}</EmailAndPhone>
+                  </Box>
+                  <AboutMeBox>
+                    {props.inputAboutMe === "" ? (
+                      " "
+                    ) : (
+                      <AboutMeTitle>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</AboutMeTitle>
+                    )}
+                    {props.inputAboutMe}
+                  </AboutMeBox>
+                </TextSide>
+                {props.image && (
+                  <img
+                    style={{ width: 246, height: 246, borderRadius: "50%" }}
+                    src={URL.createObjectURL(props.image)}
+                  />
+                )}
+              </FirstPageResult>
 
-            <SecondPageResult
-              style={{ display: showSecondPageResult ? "block" : "none" }}
-            >
-              <ExperienceTitle
-                style={{ display: showExperience ? "block" : "none" }}
+              <SecondPageResult
+                style={{ display: showSecondPageResult ? "block" : "none" }}
               >
-                ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ
-              </ExperienceTitle>
-              <ExperienceBox>
-                <PositionText>
-                  {errors.position ? " " : watch("position")}
-                  {errors.employer ? " " : watch("employer")}
-                </PositionText>
-                <StartAndEndDate>
-                  {errors.start_date ? " " : watch("start_date")}&nbsp;- &nbsp;
-                  {errors.due_date ? " " : watch("due_date")}
-                </StartAndEndDate>
-                <p>{errors.description ? " " : watch("description")}</p>
-              </ExperienceBox>
+                <ExperienceTitle
+                  style={{ display: showExperience ? "block" : "none" }}
+                >
+                  ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ
+                </ExperienceTitle>
+                <ExperienceBox>
+                  <PositionText>
+                    {errors.position ? " " : watch("position")}
+                    {errors.employer ? " " : watch("employer")}
+                  </PositionText>
+                  <StartAndEndDate>
+                    {errors.start_date ? " " : watch("start_date")}&nbsp;-
+                    &nbsp;
+                    {errors.due_date ? " " : watch("due_date")}
+                  </StartAndEndDate>
+                  <p>{errors.description ? " " : watch("description")}</p>
+                </ExperienceBox>
 
-              {/* {isFirstExperienceSubmit && (
+                {/* {isFirstExperienceSubmit && (
                 <ExperienceBox>
                   <PositionText>
                     {errors.position2 ? " " : watch("position2")}{" "}
@@ -204,7 +244,9 @@ export default function SecondInfoPage(props) {
                   <p>{errors.description2 ? " " : watch("description2")}</p>
                 </ExperienceBox>
               )} */}
-            </SecondPageResult>
+              </SecondPageResult>
+            </div>
+
             <img
               style={{
                 padding: 42,
@@ -221,9 +263,12 @@ export default function SecondInfoPage(props) {
 
 const ExperienceBox = styled.div`
   width: 100%;
-  height: 50%;
+  height: 70%;
   border-bottom: 1px solid #c8c8c8;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 const SecondPageContainer = styled.div`
   max-width: 1920px;
@@ -282,7 +327,7 @@ const TextSide = styled.div`
 `;
 const FirstPageResult = styled.div`
   width: 100%;
-  height: 20%;
+  height: 30%;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #c8c8c8;
