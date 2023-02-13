@@ -68,7 +68,7 @@ export default function ThirdFormInsideBox(props) {
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.institute ? "block" : "none",
               }}
               src={red}

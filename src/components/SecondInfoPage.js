@@ -16,9 +16,12 @@ export default function SecondInfoPage(props) {
     useState(false);
   const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
   const [experiences, setExperiences] = useState([]);
+  const [experiences1, setExperiences1] = useState([]);
   const [showExperience, setShowExperience] = useState(false);
   const [showSecondPageResult, setSecondPageResult] = useState(false);
   const [isFirstExperienceSubmit, setIsFirstExperienceSubmit] = useState(false);
+  const [isSecondExperienceSubmit, setIsSecondExperienceSubmit] =
+    useState(false);
   const [isNextButtonClicked, setIsNextButtonClicked] = useState(false);
   const {
     register,
@@ -28,20 +31,23 @@ export default function SecondInfoPage(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     setExperiences(experiences.push(data));
     props.setInfo({ ...props.info, experiences });
     setIsSecondPageSubmit(true);
+    console.log(experiences);
+    const formData = { ...props.info, experiences };
+    localStorage.setItem("formData", JSON.stringify(formData));
   };
-  console.log(errors);
-  // const onSubmit2 = (info) => {
-  //   console.log(info);
-  //   setExperiences(experiences.push(info));
-  //   props.setInfo({ ...props.info, experiences });
-  //   setIsSecondPageSubmit(true);
-  //   // setIsFirstExperienceSubmit(true);
+
+  // const onSubmit2 = (data) => {
+  //   console.log(data);
+  //   setExperiences(experiences.push(data));
+  //   props.setInfo({ ...props.info, data });
+  //   setIsSecondExperienceSubmit(true);
+  //   console.log(experiences);
   // };
   // console.log(props.info);
+
   // const handleButtonClick = (event) => {
   //   event.preventDefault();
   //   setIsMoreExperienceButtonClicked(true);
@@ -143,10 +149,11 @@ export default function SecondInfoPage(props) {
               isSecondPageSubmit={isSecondPageSubmit}
               nextButtonClicked={() => setIsNextButtonClicked(true)}
             />
-            {/* {isSecondPageSubmit &&
-              props.info.experiences.map((item) => {
+            {/* {isFirstExperienceSubmit &&
+              props.info.experiences.map((item, index) => {
                 return (
                   <ExperienceForm
+                    key={index}
                     onSubmit={onSubmit2}
                     handleSubmit={handleSubmit}
                     registerPosition={register("position2", {
@@ -204,7 +211,7 @@ export default function SecondInfoPage(props) {
                 {props.image && (
                   <img
                     style={{ width: 246, height: 246, borderRadius: "50%" }}
-                    src={URL.createObjectURL(props.image)}
+                    src={props.image}
                   />
                 )}
               </FirstPageResult>

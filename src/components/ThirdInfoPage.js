@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import arrow from "../images/arrow.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import App from "../App";
 import EducationForm from "./EducationForm";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -29,7 +29,8 @@ export default function ThirdInfoPage(props) {
     console.log(data);
     setEducations(educations.push(data));
     props.setInfo({ ...props.info, educations });
-
+    const formData = { ...props.info, educations };
+    localStorage.setItem("formData", JSON.stringify(formData));
     setIsThirdPageSubmit(true);
 
     // axios.post("https://resume.redberryinternship.ge/api/cvs", props.info, {
@@ -38,7 +39,22 @@ export default function ThirdInfoPage(props) {
     //   },
     // });
   };
+  useEffect(() => {
+    axios
+      .post("https://resume.redberryinternship.ge/api/cvs", props.info, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [props.info]);
   console.log(props.info);
+
   return isArrowClicked ? (
     <App />
   ) : isBackClicked ? (
@@ -128,7 +144,7 @@ export default function ThirdInfoPage(props) {
             {props.image && (
               <img
                 style={{ width: 246, height: 246, borderRadius: "50%" }}
-                src={URL.createObjectURL(props.image)}
+                src={props.image}
               />
             )}
           </FirstPageResult>

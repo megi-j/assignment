@@ -26,10 +26,14 @@ export default function FirstInfoPage(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    setInfo(data);
+    data.phone_number = data.phone_number.replace(/\s/g, "");
+
     setIsSubmittedFirstPage(true);
+    const formData = { ...data, image };
+    setInfo({ ...data, image });
+    localStorage.setItem("formData", JSON.stringify(formData));
   };
-  console.log(errors);
+
   // useEffect(() => {
   //   localStorage.setItem("info", JSON.stringify(info));
   // }, [info]);
@@ -41,7 +45,11 @@ export default function FirstInfoPage(props) {
   // }, []);
 
   const handleChange = (e) => {
-    setImage(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
   const backClicked = () => {
     // e.preventDefault();
@@ -128,9 +136,6 @@ export default function FirstInfoPage(props) {
               }}
             >
               <TextSide>
-                {/* {isBackClicked ? (
-                  <Name>lasha</Name>
-                ) : ( */}
                 <Name>
                   {errors.name ? " " : watch("name")}&nbsp;
                   {errors.surname ? " " : watch("surname")}
@@ -156,7 +161,7 @@ export default function FirstInfoPage(props) {
               {image && (
                 <img
                   style={{ width: 246, height: 246, borderRadius: "50%" }}
-                  src={URL.createObjectURL(image)}
+                  src={image}
                 />
               )}
             </FirstPageResult>

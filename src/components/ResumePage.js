@@ -47,7 +47,7 @@ export default function ResumePage(props) {
           {props.image && (
             <img
               style={{ width: 246, height: 246, borderRadius: "50%" }}
-              src={URL.createObjectURL(props.image)}
+              src={props.image}
             />
           )}
         </PersonalInfo>
@@ -99,7 +99,7 @@ export default function ResumePage(props) {
           style={{ float: "right" }}
           onClick={() => setIsPopUpClicked(true)}
         />
-        <PopUp>რეზიუმე წარმატებით გაიგზავნა 🎉</PopUp>
+        <PopUp>რეზიუმე წარმატებით ვერ გაიგზავნა, გთხოვთ ცადოთ ახლიდან</PopUp>
       </PopUpBox>
     </ResumePageContainer>
   );
@@ -234,6 +234,5 @@ const ResumePageContainer = styled.div`
   display: flex;
   justify-content: space-between;
   overflow-y: scroll;
-  border: 1px solid red;
   padding: 45px;
 `;

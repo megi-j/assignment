@@ -55,6 +55,7 @@ const ArrowDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const Title = styled.h2`
   font-weight: 700;
