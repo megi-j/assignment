@@ -12,7 +12,6 @@ import ThirdInfoPage from "./ThirdInfoPage";
 
 export default function SecondInfoPage(props) {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
-
   const [isMoreExperienceButtonClicked, setIsMoreExperienceButtonClicked] =
     useState(false);
   const [isSecondPageSubmit, setIsSecondPageSubmit] = useState(false);
@@ -34,6 +33,7 @@ export default function SecondInfoPage(props) {
     props.setInfo({ ...props.info, experiences });
     setIsSecondPageSubmit(true);
   };
+  console.log(errors);
   // const onSubmit2 = (info) => {
   //   console.log(info);
   //   setExperiences(experiences.push(info));

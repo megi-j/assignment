@@ -1,8 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
 
 export default function FormBox(props) {
+  const [isInputedName, setIsInputedName] = useState(false);
+  const [isInputedSurname, setInputedSurname] = useState(false);
+  const [isInputedEmail, setIsInputedEmail] = useState(false);
+  const [isInputedPhone, setIsInputedPhone] = useState(false);
   return (
     <Form onSubmit={props.handleSubmit(props.onSubmit)}>
       <InfoBox>
@@ -12,16 +17,27 @@ export default function FormBox(props) {
             style={{
               border: props.name
                 ? "1px solid #EF5050"
-                : props.name == undefined
+                : !isInputedName
+                ? "1px solid #BCBCBC"
+                : isInputedName && props.name === undefined
                 ? "1px solid #98E37E"
-                : "1px solid #BCBCBC",
+                : null,
             }}
           >
-            <Input type="text" {...props.registerName} />
+            <Input
+              type="text"
+              {...props.registerName}
+              onInput={() => setIsInputedName(true)}
+            />
 
             <img
               style={{
-                display: props.name ? "none" : "block",
+                display:
+                  !isInputedName || props.name
+                    ? "none"
+                    : props.name === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
@@ -43,13 +59,28 @@ export default function FormBox(props) {
           <Label htmlFor="">გვარი</Label>
           <InputIconBox
             style={{
-              border: props.surname ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.surname
+                ? "1px solid #EF5050"
+                : !isInputedSurname
+                ? "1px solid #BCBCBC"
+                : isInputedSurname && props.surname === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
-            <Input type="text" {...props.registerSurname} />
+            <Input
+              type="text"
+              {...props.registerSurname}
+              onInput={() => setInputedSurname(true)}
+            />
             <img
               style={{
-                display: props.surname ? "none" : "block",
+                display:
+                  !isInputedSurname || props.surname
+                    ? "none"
+                    : props.surname === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
@@ -126,17 +157,29 @@ export default function FormBox(props) {
           <Label>ელ.ფოსტა</Label>
           <InputIconBox
             style={{
-              border: props.email ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.email
+                ? "1px solid #EF5050"
+                : !isInputedEmail
+                ? "1px solid #BCBCBC"
+                : isInputedEmail && props.email === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <Input
               type="email"
               {...props.registerEmail}
               onFocus={props.onFocusEmail}
+              onInput={() => setIsInputedEmail(true)}
             />
             <img
               style={{
-                display: props.email ? "none" : "block",
+                display:
+                  !isInputedEmail || props.email
+                    ? "none"
+                    : props.email === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
@@ -162,17 +205,27 @@ export default function FormBox(props) {
             style={{
               border: props.phoneNumber
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedPhone
+                ? "1px solid #BCBCBC"
+                : isInputedPhone && props.phoneNumber === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <Input
               type="tel"
               {...props.registerPhoneNumber}
               onFocus={props.onFocusTel}
+              onInput={() => setIsInputedPhone(true)}
             />
             <img
               style={{
-                display: props.phoneNumber ? "none" : "block",
+                display:
+                  !isInputedPhone || props.phoneNumber
+                    ? "none"
+                    : props.phoneNumber === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""

@@ -29,6 +29,7 @@ export default function FirstInfoPage(props) {
     setInfo(data);
     setIsSubmittedFirstPage(true);
   };
+  console.log(errors);
   // useEffect(() => {
   //   localStorage.setItem("info", JSON.stringify(info));
   // }, [info]);

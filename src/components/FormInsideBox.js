@@ -1,8 +1,14 @@
+import { useState } from "react";
 import styled from "styled-components";
 import green from "../images/green-icon.png";
 import red from "../images/red-icon.png";
 
 export default function FormInsideBox(props) {
+  const [isInputedPosition, setIsInputedPosition] = useState(false);
+  const [isInputedEmpoyer, setIsInputedEmployer] = useState(false);
+  const [isInputedStartDate, setIsInputedStartDate] = useState(false);
+  const [isInputedDueDate, setIsInputedDueDate] = useState(false);
+  const [isInputedDescription, setIsInputedDescription] = useState(false);
   return (
     <FormInsideDiv>
       <InfoBox>
@@ -12,26 +18,38 @@ export default function FormInsideBox(props) {
             style={{
               border: props.position
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedPosition
+                ? "1px solid #BCBCBC"
+                : isInputedPosition && props.position === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <Input
               type="text"
               placeholder="დეველოპერი, დიზაინერი, ა.შ."
               {...props.registerPosition}
-              onInput={props.showExperience}
+              onInput={() => {
+                props.showExperience();
+                setIsInputedPosition(true);
+              }}
               onFocus={props.showSecondPageResult}
             />
             <img
               style={{
-                display: props.position ? "none" : "block",
+                display:
+                  !isInputedPosition || props.position
+                    ? "none"
+                    : props.position === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.position ? "block" : "none",
               }}
               src={red}
@@ -49,24 +67,34 @@ export default function FormInsideBox(props) {
             style={{
               border: props.employer
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedEmpoyer
+                ? "1px solid #BCBCBC"
+                : isInputedEmpoyer && props.employer === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <Input
               type="text"
               placeholder="დამსაქმებელი"
               {...props.registerEmployer}
+              onInput={() => setIsInputedEmployer(true)}
             />
             <img
               style={{
-                display: props.employer ? "none" : "block",
+                display:
+                  !isInputedEmpoyer || props.employer
+                    ? "none"
+                    : props.employer === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
             />
             <img
               style={{
-                marginRight: "-30px",
+                marginRight: "-50px",
                 display: props.employer ? "block" : "none",
               }}
               src={red}
@@ -84,20 +112,38 @@ export default function FormInsideBox(props) {
             style={{
               border: props.startDate
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedStartDate
+                ? "1px solid #BCBCBC"
+                : isInputedStartDate && props.startDate === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
-            <Input type="date" {...props.registerStartDate} />
+            <Input
+              type="date"
+              {...props.registerStartDate}
+              onInput={() => setIsInputedStartDate(true)}
+            />
           </InputIconBox>
         </InputBox>
         <InputBox>
           <Label>დამთავრების რიცხვი</Label>
           <InputIconBox
             style={{
-              border: props.dueDate ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.dueDate
+                ? "1px solid #EF5050"
+                : !isInputedDueDate
+                ? "1px solid #BCBCBC"
+                : isInputedDueDate && props.dueDate === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
-            <Input type="date" {...props.registerDueDate} />
+            <Input
+              type="date"
+              {...props.registerDueDate}
+              onInput={() => setIsInputedDueDate(true)}
+            />
           </InputIconBox>
         </InputBox>
       </InfoBox>
@@ -114,11 +160,25 @@ export default function FormInsideBox(props) {
             style={{
               border: props.description
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedDescription
+                ? "1px solid #BCBCBC"
+                : isInputedDescription && props.description === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
             {...props.registerDescription}
+            onInput={() => setIsInputedDescription(true)}
           ></Textarea>
         </InputBox>
+        <img
+          style={{
+            marginRight: 0,
+            marginTop: "-35px",
+            display: props.description ? "block" : "none",
+          }}
+          src={red}
+          alt=""
+        />
       </InfoBox>
       <hr style={{ width: "95%", margin: "0 auto" }} />
     </FormInsideDiv>

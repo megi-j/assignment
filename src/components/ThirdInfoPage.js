@@ -91,7 +91,7 @@ export default function ThirdInfoPage(props) {
           registerEducationDescription={register("description", {
             required: true,
           })}
-          educationDescription={errors.educationDescription}
+          educationDescription={errors.description}
           institute={errors.institute}
           degree={errors.degree}
           graduateDate={errors.due_date}

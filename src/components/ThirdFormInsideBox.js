@@ -8,6 +8,11 @@ import { useState, useEffect } from "react";
 export default function ThirdFormInsideBox(props) {
   const [options, setOptions] = useState();
   const [fetched, setFetched] = useState(false);
+  const [isInputedInstitute, setIsInputedInstitute] = useState(false);
+  const [isInputedDegree, setIsInputedDegree] = useState(false);
+  const [isInputedGraduateDate, setIsInputedGraduateDate] = useState(false);
+  const [isInputedEducationDescription, setIsInputedEducationDescription] =
+    useState(false);
   const {
     register,
     watch,
@@ -36,17 +41,27 @@ export default function ThirdFormInsideBox(props) {
             style={{
               border: props.institute
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedInstitute
+                ? "1px solid #BCBCBC"
+                : isInputedInstitute && props.institute === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <Input
               type="text"
               placeholder="სასწავლებელი"
               {...props.registerInstitute}
+              onInput={() => setIsInputedInstitute(true)}
             />
             <img
               style={{
-                display: props.institute ? "none" : "block",
+                display:
+                  !isInputedInstitute || props.institute
+                    ? "none"
+                    : props.institute === undefined
+                    ? "block"
+                    : null,
               }}
               src={green}
               alt=""
@@ -69,7 +84,13 @@ export default function ThirdFormInsideBox(props) {
           <Label>ხარისხი</Label>
           <InputIconBox
             style={{
-              border: props.degree ? "1px solid #EF5050" : "1px solid #98E37E",
+              border: props.degree
+                ? "1px solid #EF5050"
+                : !isInputedDegree
+                ? "1px solid #BCBCBC"
+                : isInputedDegree && props.degree === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
           >
             <select
@@ -81,6 +102,7 @@ export default function ThirdFormInsideBox(props) {
               }}
               name="option"
               {...props.registerDegree}
+              onInput={() => setIsInputedDegree(true)}
             >
               {fetched &&
                 options.map((option) => (
@@ -100,8 +122,13 @@ export default function ThirdFormInsideBox(props) {
             style={{
               border: props.graduateDate
                 ? "1px solid #EF5050"
-                : "1px solid #bcbcbc",
+                : !isInputedGraduateDate
+                ? "1px solid #BCBCBC"
+                : isInputedGraduateDate && props.graduateDate === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
+            onInput={() => setIsInputedGraduateDate(true)}
           />
         </InputBox>
       </InfoBox>
@@ -118,9 +145,15 @@ export default function ThirdFormInsideBox(props) {
             style={{
               border: props.educationDescription
                 ? "1px solid #EF5050"
-                : "1px solid #98E37E",
+                : !isInputedEducationDescription
+                ? "1px solid #BCBCBC"
+                : isInputedEducationDescription &&
+                  props.educationDescription === undefined
+                ? "1px solid #98E37E"
+                : null,
             }}
             {...props.registerEducationDescription}
+            onInput={() => setIsInputedEducationDescription(true)}
           ></Textarea>
         </InputBox>
       </InfoBox>
